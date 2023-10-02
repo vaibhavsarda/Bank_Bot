@@ -7,3 +7,4 @@
 ../lib/
 ../pyenv.cfg
 ../.DS_Store
+/.gitignore
