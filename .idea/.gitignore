@@ -6,3 +6,4 @@
 ../include/
 ../lib/
 ../pyenv.cfg
+../.DS_Store
