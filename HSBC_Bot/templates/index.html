@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+    <head>
+       <style>
+          button {margin: 5px; padding: 10px 20px; background-color: #007bff; color: #fff; border: none; border-radius: 5px; cursor: pointer;}
+          button:hover {background-color: #0056b3;}
+          div { margin-top: 20px;}
+       </style>
+    </head>
+    <body>
+       <h3> Kuch tum kaho, kuch hum kahein... </h3>
+       <div>
+          <button id = "start"> Start Recording </button>
+          <button id = "stop"> Stop Recording </button>
+          <button id = "play"> Play Recorded Audio </button>
+       </div> <br>
+       <div id = "output"> </div>
+       <p id="action" style="color: grey;font-weight: 800; padding: 0; padding-left: 2rem;"></p>
+       <h3 id="textOutput" class="hide"></h3>
+
+       {% load static %}
+       <script src="{% static 'js/index.js' %}"></script>
+    </body>
+
+</html>>
