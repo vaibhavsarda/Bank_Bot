@@ -1,4 +1,4 @@
-# HSBC_Bot
+# Bank_Bot
 
 A Django-based website which takes audio input from user and returns audio response from user, as obtained from GPT-3.
 
