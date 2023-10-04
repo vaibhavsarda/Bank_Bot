@@ -8,18 +8,24 @@
        </style>
     </head>
     <body>
-       <h3> Kuch tum kaho, kuch hum kahein... </h3>
+       <h3> Lumos </h3>
        <div>
           <button id = "start"> Start Recording </button>
           <button id = "stop"> Stop Recording </button>
           <button id = "play"> Play Recorded Audio </button>
+          <button id = "ask_me"> Ask Me </button>
        </div> <br>
        <div id = "output"> </div>
        <p id="action" style="color: grey;font-weight: 800; padding: 0; padding-left: 2rem;"></p>
        <h3 id="textOutput" class="hide"></h3>
 
+       <h3 id="gptOutput" class="hide"></h3>
+
        {% load static %}
+       <!--AJAX-->
+       <script type="text/javascript" src="{% static 'js/jquery-3.7.1.min.js' %}" defer></script>
        <script src="{% static 'js/index.js' %}"></script>
+
     </body>
 
 </html>>

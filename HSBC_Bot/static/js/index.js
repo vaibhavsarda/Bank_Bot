@@ -1,10 +1,17 @@
 const startButton = document.getElementById('start');
 const stopButton = document.getElementById('stop');
 const playButton = document.getElementById('play');
+const askMeButton = document.getElementById('ask_me');
 
 let output = document.getElementById('output');
 let audioRecorder;
 let audioChunks = [];
+let transcript = "";
+
+
+document.addEventListener('DOMContentLoaded', function(){
+    askMeButton.addEventListener('click', () => call_gpt());
+});
 
 navigator.mediaDevices.getUserMedia({ audio: true })
  .then(stream => {
@@ -48,21 +55,40 @@ navigator.mediaDevices.getUserMedia({ audio: true })
 
 // function to convert speech to text
 runSpeechRecog = () => {
-document.getElementById("textOutput").innerHTML = "Loading text...";
+    document.getElementById("textOutput").innerHTML = "Loading text...";
 
-var textOutput = document.getElementById('textOutput');
-var action = document.getElementById('action');
-let recognization = new webkitSpeechRecognition();
+    var textOutput = document.getElementById('textOutput');
+    var action = document.getElementById('action');
+    let recognization = new webkitSpeechRecognition();
 
-recognization.onstart = () => {
-   action.innerHTML = "Listening...";
+    recognization.onstart = () => {
+       action.innerHTML = "Listening...";
+    }
+
+    recognization.onresult = (e) => {
+       transcript = e.results[0][0].transcript;
+       textOutput.innerHTML = transcript;
+       textOutput.classList.remove("hide")
+       action.innerHTML = "";
+    }
+    recognization.start();
 }
 
-recognization.onresult = (e) => {
-   var transcript = e.results[0][0].transcript;
-   textOutput.innerHTML = transcript;
-   textOutput.classList.remove("hide")
-   action.innerHTML = "";
-}
-recognization.start();
+function call_gpt() {
+    var gptOutput = document.getElementById('gptOutput');
+    console.log()
+    $.ajax({
+        type: 'GET',
+        url: '/HSBC_Bot_Server/get_gpt_response',
+        data: {
+            'text': transcript
+        },
+        success: (res)=> {
+            let response = res.data
+            gptOutput.innerHTML = response
+        },
+        error: ()=> {
+            console.log("There was an error")
+        }
+    });
 }
