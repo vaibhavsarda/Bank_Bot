@@ -10,7 +10,6 @@ const chatLog = document.getElementById("chat-input");
 
 
 let userText = null;
-const API_KEY = "PASTE-YOUR-API-KEY-HERE"; // Paste your API key here
 const startButton = document.getElementById('start-voice');
 const output = document.getElementById('recognized-text');
 
@@ -108,17 +107,18 @@ startListeningButton.addEventListener("click", function () {
         const transcript = event.results[event.results.length - 1][0].transcript;
         appendMessage("You: " + transcript, "user");
 
+        console.log("Transcribed text: "+transcript);
+
+        chatInput.value = transcript
+        if (window.innerWidth > 800) {
+            handleOutgoingChat();
+        }
+
         // Send the user's speech to your backend for processing with GPT-3,
         // and get the AI response.
 
         // Simulate the AI response (replace with actual response)
         const aiResponse = "This is a sample AI response.";
-
-        // Synthesize and speak the AI response
-        const speechSynthesis = window.speechSynthesis;
-        const aiUtterance = new SpeechSynthesisUtterance(aiResponse);
-        aiUtterance.lang = 'en-US';
-        speechSynthesis.speak(aiUtterance);
 
         appendMessage("Lumos: " + aiResponse, "ai");
     }
@@ -149,40 +149,46 @@ const createChatElement = (content, className) => {
 }
 
 const getChatResponse = async (incomingChatDiv) => {
-    const API_URL = "https://api.openai.com/v1/completions";
     const pElement = document.createElement("p");
+    let response = null;
 
-    // Define the properties and data for the API request
-    const requestOptions = {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-            "Authorization": `Bearer ${API_KEY}`
+    $.ajax({
+        type: 'GET',
+        url: '/HSBC_Bot_Server/get_gpt_response',
+        data: {
+            'text': userText
         },
-        body: JSON.stringify({
-            model: "text-davinci-003",
-            prompt: userText,
-            max_tokens: 2048,
-            temperature: 0.2,
-            n: 1,
-            stop: null
-        })
-    }
-
-    // Send POST request to API, get response and set the reponse as paragraph element text
-    try {
-        const response = await (await fetch(API_URL, requestOptions)).json();
-        pElement.textContent = response.choices[0].text.trim();
-    } catch (error) { // Add error class to the paragraph element and set error text
-        pElement.classList.add("error");
-        pElement.textContent = "Oops! Something went wrong while retrieving the response. Please try again.";
-    }
+        success: (res)=> {
+            response = res.data;
+            pElement.textContent = response.trim();
+            speakAiResponse(response);
+            startListeningButton.style.display = "block";
+            stopListeningButton.style.display = "block";
+        },
+        error: ()=> {
+            console.log("There was an error");
+            pElement.classList.add("error");
+            response = "Oops! Something went wrong while retrieving the response. Please try again.";
+            pElement.textContent = response;
+            speakAiResponse(response);
+            startListeningButton.style.display = "block";
+            stopListeningButton.style.display = "block";
+        }
+    });
 
     // Remove the typing animation, append the paragraph element and save the chats to local storage
     incomingChatDiv.querySelector(".typing-animation").remove();
     incomingChatDiv.querySelector(".chat-details").appendChild(pElement);
     localStorage.setItem("all-chats", chatContainer.innerHTML);
     chatContainer.scrollTo(0, chatContainer.scrollHeight);
+}
+
+const speakAiResponse = (aiResponse) => {
+    // Synthesize and speak the text
+    const speechSynthesis = window.speechSynthesis;
+    const aiUtterance = new SpeechSynthesisUtterance(aiResponse);
+    aiUtterance.lang = 'en-US';
+    speechSynthesis.speak(aiUtterance);
 }
 
 const copyResponse = (copyBtn) => {
@@ -197,7 +203,7 @@ const showTypingAnimation = () => {
     // Display the typing animation and call the getChatResponse function
     const html = `<div class="chat-content">
                     <div class="chat-details">
-                        <img src="chatbot.jpg" alt="chatbot-img">
+                        <img src="/static/images/chatbot.jpg" defer" alt="chatbot-img">
                         <div class="typing-animation">
                             <div class="typing-dot" style="--delay: 0.2s"></div>
                             <div class="typing-dot" style="--delay: 0.3s"></div>
@@ -223,7 +229,7 @@ const handleOutgoingChat = () => {
 
     const html = `<div class="chat-content">
                     <div class="chat-details">
-                        <img src="user.jpg" alt="user-img">
+                        <img src="/static/images/user.jpg" alt="user-img">
                         <p>${userText}</p>
                     </div>
                 </div>`;
