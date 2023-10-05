@@ -13,8 +13,7 @@ def index(request):
 @csrf_exempt
 def get_gpt_response(request):
     if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
-        # text_prompt = request.GET.get('text')
-        text_prompt = "what is the capital of India: {text}"
+        text_prompt = request.GET.get('text')
         print("Text Prompt:", text_prompt)
 
         openai.api_key = "API_KEY"
@@ -23,4 +22,4 @@ def get_gpt_response(request):
         print("Response:", response)
         gpt_response = response.choices[0]["text"]
         return JsonResponse({'data': gpt_response})
-    return JsonResponse({})
+    return JsonResponse({'data': "Oops! Something went wrong while retrieving the response. Please try again."})
