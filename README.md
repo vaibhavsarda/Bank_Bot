@@ -15,3 +15,4 @@ A Django-based website which takes audio input from user and returns audio respo
 7. Run the project:
     * cd HSBC_Bot
     * python manage.py runserver
+8. The home page development is completed and is working: BASE_URL//HSBC_Bot_Server/
