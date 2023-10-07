@@ -3,7 +3,7 @@ import json
 
 from django.http import JsonResponse
 
-api_key = "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"
+api_key = "API_KEY"
 
 
 def call_gpt3():
