@@ -27,3 +27,5 @@ def get_gpt_response(request):
 
 def get_financial_recommendation(request):
     return render(request, 'financial_recommendation.html')
+def yes_no_question(request):
+    return render(request,"ques.html")
