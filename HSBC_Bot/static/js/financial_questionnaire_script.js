@@ -11,11 +11,160 @@ fetch('/static/financial_questionnaire.json')
     });
 
 function askPersonaQuestions(data) {
+
     let questionnaire = data["questionnaire"];
     let questionNum = 0;
 
-    console.log(questionnaire[questionNum]["question"]);
-    handleBotChat(questionnaire[questionNum]["question"]);
+    // JavaScript for handling chat interactions
+
+    const getFinancialRecommendation = async (incomingChatDiv) => {
+        const pElement = document.createElement("p");
+        let response = null;
+
+        let userResponses = JSON.stringify({"userResponses": questionnaire});
+
+        $.ajax({
+            type: 'GET',
+            url: '/HSBC_Bot_Server/get_products_and_services',
+            data: {
+                'userResponses': userResponses
+            },
+            success: (res)=> {
+                response = res.data;
+                pElement.textContent = response.trim();
+                speakAiResponse(response);
+                startListeningButton.style.display = "block";
+                stopListeningButton.style.display = "block";
+            },
+            error: ()=> {
+                console.log("There was an error");
+                pElement.classList.add("error");
+                response = "Oops! Something went wrong while retrieving the response. Please try again.";
+                pElement.textContent = response;
+                speakAiResponse(response);
+                startListeningButton.style.display = "block";
+                stopListeningButton.style.display = "block";
+            }
+        });
+
+        // Remove the typing animation, append the paragraph element and save the chats to local storage
+        incomingChatDiv.querySelector(".typing-animation").remove();
+        incomingChatDiv.querySelector(".chat-details").appendChild(pElement);
+        localStorage.setItem("all-chats", chatContainer.innerHTML);
+        chatContainer.scrollTo(0, chatContainer.scrollHeight);
+    }
+
+    // Show typing animation
+    const showTypingAnimation = () => {
+        // Display the typing animation and call the getFinancialRecommendation function
+        const html = `<div class="chat-content">
+                        <div class="chat-details">
+                            <img src="/static/images/chatbot.jpg" defer" alt="chatbot-img">
+                            <div class="typing-animation">
+                                <div class="typing-dot" style="--delay: 0.2s"></div>
+                                <div class="typing-dot" style="--delay: 0.3s"></div>
+                                <div class="typing-dot" style="--delay: 0.4s"></div>
+                            </div>
+                        </div>
+                        <span onclick="copyResponse(this)" class="material-symbols-rounded">content_copy</span>
+                    </div>`;
+        // Create an incoming chat div with typing animation and append it to chat container
+        const incomingChatDiv = createChatElement(html, "incoming");
+        chatContainer.appendChild(incomingChatDiv);
+        chatContainer.scrollTo(0, chatContainer.scrollHeight);
+        getFinancialRecommendation(incomingChatDiv);
+    }
+
+
+    // Display outgoing chat
+    const handleOutgoingChat = () => {
+        let userText = chatInput.value.trim(); // Get chatInput value and remove extra spaces
+
+        // Verification Checks
+        if(!userText) return; // If chatInput is empty return from here
+
+        // If verification check is enabled and userText is not Int return from here
+        if(questionnaire[questionNum]["verification"] == "numeric" && !isInt(userText)) {
+            showSnackBar("The input should be a number");
+            chatInput.value = "";
+            chatInput.style.height = `${initialInputHeight}px`;
+            return;
+        }
+
+        // Store user's answer
+        questionnaire[questionNum]["answer"] = userText;
+
+        // Clear the input field and reset its height
+        chatInput.value = "";
+        chatInput.style.height = `${initialInputHeight}px`;
+
+        // Create an outgoing chat div with user's message and append it to chat container
+        createChat("outgoing", userText);
+
+        // Bot asks next question
+        questionNum++;
+        handleBotChat();
+    }
+
+    const handleBotChat = () => {
+
+        if(questionNum == questionnaire.length) {
+            setTimeout(showTypingAnimation, 5000);
+            return;
+        }
+
+        let botText = questionnaire[questionNum]["question"];
+
+        let botTextTrimmed = botText.trim(); // Remove extra spaces from botText
+        if(!botTextTrimmed) return; // If botText is empty return from here
+
+        // Create an outgoing chat div with bot's message and append it to chat container
+        createChat("incoming", botTextTrimmed);
+    }
+
+    function createChat(chatType, chatText) {
+        let chatImageBasePath = '/static/images/';
+        let chatImageName = chatType == "incoming" ? 'chatbot.jpg' : 'user.jpg';
+        let chatImagePath = chatImageBasePath + chatImageName;
+
+        let altText = chatType == "incoming" ? "bot-img" : "user-img";
+
+        const html = `<div class="chat-content">
+                        <div class="chat-details">
+                            <img src=${chatImagePath} alt=${altText}>
+                            <p>${chatText}</p>
+                        </div>
+                    </div>`;
+
+        const outgoingChatDiv = createChatElement(html, chatType);
+        chatContainer.querySelector(".default-text")?.remove();
+        chatContainer.appendChild(outgoingChatDiv);
+        chatContainer.scrollTo(0, chatContainer.scrollHeight);
+    }
+
+    // Handle event when user presses Enter
+    chatInput.addEventListener("keydown", (e) => {
+        // If the Enter key is pressed without Shift and the window width is larger
+        // than 800 pixels, handle the outgoing chat
+        if (e.key === "Enter" && !e.shiftKey && window.innerWidth > 800) {
+            e.preventDefault();
+            handleOutgoingChat();
+        }
+    });
+
+    sendButton.addEventListener("click", handleOutgoingChat);
+
+    handleBotChat();
+}
+
+// Short-circuiting, and saving a parse operation
+function isInt(value) {
+  let x;
+  if (isNaN(value)) {
+    return false;
+  }
+  x = parseFloat(value);
+  return (x | 0) === x;
 }
 
 // OLD CODE
@@ -117,12 +266,8 @@ const startListeningButton = document.getElementById("start-voice");
 const stopListeningButton = document.getElementById("stop-listening");
 const chatLog = document.getElementById("chat-input");
 
-let userText = null;
 const startButton = document.getElementById('start-voice');
 const output = document.getElementById('recognized-text');
-
-// JavaScript for handling chat interactions
-
 
 // Function to add a message to the chat log
 function addMessage(message, sender) {
@@ -256,41 +401,6 @@ const createChatElement = (content, className) => {
     return chatDiv; // Return the created chat div
 }
 
-const getChatResponse = async (incomingChatDiv) => {
-    const pElement = document.createElement("p");
-    let response = null;
-
-    $.ajax({
-        type: 'GET',
-        url: '/HSBC_Bot_Server/get_gpt_response',
-        data: {
-            'text': userText
-        },
-        success: (res)=> {
-            response = res.data;
-            pElement.textContent = response.trim();
-            speakAiResponse(response);
-            startListeningButton.style.display = "block";
-            stopListeningButton.style.display = "block";
-        },
-        error: ()=> {
-            console.log("There was an error");
-            pElement.classList.add("error");
-            response = "Oops! Something went wrong while retrieving the response. Please try again.";
-            pElement.textContent = response;
-            speakAiResponse(response);
-            startListeningButton.style.display = "block";
-            stopListeningButton.style.display = "block";
-        }
-    });
-
-    // Remove the typing animation, append the paragraph element and save the chats to local storage
-    incomingChatDiv.querySelector(".typing-animation").remove();
-    incomingChatDiv.querySelector(".chat-details").appendChild(pElement);
-    localStorage.setItem("all-chats", chatContainer.innerHTML);
-    chatContainer.scrollTo(0, chatContainer.scrollHeight);
-}
-
 // Convert text to speech
 const speakAiResponse = (aiResponse) => {
     // Synthesize and speak the text
@@ -306,84 +416,6 @@ const copyResponse = (copyBtn) => {
     navigator.clipboard.writeText(reponseTextElement.textContent);
     copyBtn.textContent = "done";
     setTimeout(() => copyBtn.textContent = "content_copy", 1000);
-}
-
-// Show typing animation
-const showTypingAnimation = () => {
-    // Display the typing animation and call the getChatResponse function
-    const html = `<div class="chat-content">
-                    <div class="chat-details">
-                        <img src="/static/images/chatbot.jpg" defer" alt="chatbot-img">
-                        <div class="typing-animation">
-                            <div class="typing-dot" style="--delay: 0.2s"></div>
-                            <div class="typing-dot" style="--delay: 0.3s"></div>
-                            <div class="typing-dot" style="--delay: 0.4s"></div>
-                        </div>
-                    </div>
-                    <span onclick="copyResponse(this)" class="material-symbols-rounded">content_copy</span>
-                </div>`;
-    // Create an incoming chat div with typing animation and append it to chat container
-    const incomingChatDiv = createChatElement(html, "incoming");
-    chatContainer.appendChild(incomingChatDiv);
-    chatContainer.scrollTo(0, chatContainer.scrollHeight);
-    getChatResponse(incomingChatDiv);
-}
-
-// Display outgoing chat
-const handleOutgoingChat = () => {
-    userText = chatInput.value.trim(); // Get chatInput value and remove extra spaces
-    if(!userText) return; // If chatInput is empty return from here
-
-    // Clear the input field and reset its height
-    chatInput.value = "";
-    chatInput.style.height = `${initialInputHeight}px`;
-
-    const html = `<div class="chat-content">
-                    <div class="chat-details">
-                        <img src="/static/images/user.jpg" alt="user-img">
-                        <p>${userText}</p>
-                    </div>
-                </div>`;
-
-    // Create an outgoing chat div with user's message and append it to chat container
-    const outgoingChatDiv = createChatElement(html, "outgoing");
-    chatContainer.querySelector(".default-text")?.remove();
-    chatContainer.appendChild(outgoingChatDiv);
-    chatContainer.scrollTo(0, chatContainer.scrollHeight);
-    setTimeout(showTypingAnimation, 500);
-}
-
-deleteButton.addEventListener("click", () => {
-    // Remove the chats from local storage and call loadDataFromLocalstorage function
-    if(confirm("Are you sure you want to delete all the chats?")) {
-        localStorage.removeItem("all-chats");
-        loadDataFromLocalstorage();
-    }
-});
-
-function handleBotChat(botText) {
-
-    botTextTrimmed = botText.trim(); // Remove extra spaces from botText
-    if(!botTextTrimmed) return; // If botText is empty return from here
-
-    // Clear the input field and reset its height
-    chatInput.value = "";
-    chatInput.style.height = `${initialInputHeight}px`;
-
-    const html = `<div class="chat-content">
-                    <div class="chat-details">
-                        <img src="/static/images/chatbot.jpg" alt="bot-img">
-                        <p>${botTextTrimmed}</p>
-                    </div>
-                </div>`;
-
-    // Create an outgoing chat div with user's message and append it to chat container
-    const outgoingChatDiv = createChatElement(html, "outgoing");
-//    chatContainer.querySelector(".default-text")?.remove();
-//    chatContainer.appendChild(outgoingChatDiv);
-//    chatContainer.scrollTo(0, chatContainer.scrollHeight);
-//    setTimeout(showTypingAnimation, 500);
-
 }
 
 // Handle event when user switches themes
@@ -403,15 +435,20 @@ chatInput.addEventListener("input", () => {
     chatInput.style.height = `${chatInput.scrollHeight}px`;
 });
 
-// Handle event when user presses Enter
-chatInput.addEventListener("keydown", (e) => {
-    // If the Enter key is pressed without Shift and the window width is larger
-    // than 800 pixels, handle the outgoing chat
-    if (e.key === "Enter" && !e.shiftKey && window.innerWidth > 800) {
-        e.preventDefault();
-        handleOutgoingChat();
+deleteButton.addEventListener("click", () => {
+    // Remove the chats from local storage and call loadDataFromLocalstorage function
+    if(confirm("Are you sure you want to delete all the chats?")) {
+        localStorage.removeItem("all-chats");
+        loadDataFromLocalstorage();
     }
 });
 
-loadDataFromLocalstorage();
-sendButton.addEventListener("click", handleOutgoingChat);
+function showSnackBar(message) {
+  let snackbar= document.getElementById('snackbar');
+  snackbar.innerText=message;
+  snackbar.className="show";
+  setTimeout(function(){ snackbar.className = snackbar.className.replace("show", ""); }, 6000);
+}
+
+//loadDataFromLocalstorage();
+
