@@ -1,8 +1,55 @@
 {% extends 'base.html' %}
 
 {% block headscripts %}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="utf-8">
+    <title>Lumos</title>
     {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <script src="{% static 'js/script.js' %}" defer></script>
+<<<<<<< HEAD
 {% endblock headscripts %}
+=======
+    
+    <script src="https://code.responsivevoice.org/responsivevoice.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui-touch-punch/0.2.3/jquery.ui.touch-punch.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/speechrecognition/4.0.4/speech-recognition.min.js"></script>
+    
+
+</head>
+<body>
+
+<div class="chat-log" id="chat-log">
+    <!-- Chat messages will appear here -->
+    <div class="chat-container"></div>
+</div>
+
+<!-- Typing container -->
+<div class="typing-container">
+    <div class="typing-content">
+        <div class="typing-textarea">
+            <textarea id="chat-input" spellcheck="false" placeholder="Send message" required></textarea>
+            <div class="recognized-text" id="recognized-text"></div>
+            <span id="send-btn" class="material-symbols-rounded">send</span>
+        </div>
+        <div class="typing-controls">
+            <span id="start-voice" class="material-symbols-rounded">mic</span>
+            <span id="theme-btn" class="material-symbols-rounded">light_mode</span>
+            <span id="delete-btn" class="material-symbols-rounded">delete</span>
+        </div>
+        
+    </div>
+</div>
+
+
+</body>
+</html>
+
+
+>>>>>>> 25121d4eedc31a3d2c5aa2186b840e1e396b4a7a
 
 

@@ -20,7 +20,10 @@ function addMessage(message, sender) {
     chatLog.scrollTop = chatLog.scrollHeight; // Scroll to the bottom
 }
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 25121d4eedc31a3d2c5aa2186b840e1e396b4a7a
 function onYesClick(){
     alert("you clicked yes");
              //write the code here
@@ -55,11 +58,36 @@ function redirectToPage(url) {
   }
 
 function onNoClick() {
+<<<<<<< HEAD
    // alert("you clicked no");
     window.location.href =  "script.js";
     // Remove the question and everything inside the 'questionDiv'
    // var questionDiv = document.getElementById("questionDiv");
     //questionDiv.parentNode.removeChild(questionDiv);
+=======
+    alert("you clicked no");
+    $.ajax({
+        type: 'GET',
+        url: '/HSBC_Bot_Server/',
+        data: {
+            'text': userText
+        },
+        success: (res)=> {
+            response = res.data;
+           
+            
+        },
+        error: ()=> {
+            console.log("There was an error");
+           
+           
+        }
+    });
+
+        // Remove the question and everything inside the 'questionDiv'
+        var questionDiv = document.getElementById("questionDiv");
+        questionDiv.parentNode.removeChild(questionDiv);
+>>>>>>> 25121d4eedc31a3d2c5aa2186b840e1e396b4a7a
         // You can add your custom logic here for 'No'.
     }
 document.getElementById("yesButton").addEventListener("click", onYesClick);
@@ -131,7 +159,11 @@ startListeningButton.addEventListener("click", function () {
             recognition.stop();
             document.getElementById('stopButton').disabled = true;
             document.getElementById('startButton').disabled = false;
+<<<<<<< HEAD
         }, 1000);
+=======
+        }, 100);
+>>>>>>> 25121d4eedc31a3d2c5aa2186b840e1e396b4a7a
     };
 
    /* recognition.onend = function () {
