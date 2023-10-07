@@ -5,5 +5,8 @@ from . import views
 urlpatterns = [
     path("", views.index, name="index"),
     path("get_gpt_response/", views.get_gpt_response, name="get_gpt_response"),
-    path("get_financial_recommendation/", views.get_financial_recommendation, name="get_financial_recommendation")
+    path("get_financial_recommendation/", views.get_financial_recommendation, name="get_financial_recommendation"),
+    path("yes_no_question/", views.yes_no_question, name="yes_no_question")
+
 ]
+

@@ -16,7 +16,7 @@ def get_gpt_response(request):
         text_prompt = request.GET.get('text')
         print("Text Prompt:", text_prompt)
 
-        openai.api_key = "API_KEY"
+        openai.api_key = "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"
 
         response = openai.Completion.create(engine="gpt-3.5-turbo-instruct", prompt=text_prompt, max_tokens=50)
         print("Response:", response)
@@ -27,3 +27,5 @@ def get_gpt_response(request):
 
 def get_financial_recommendation(request):
     return render(request, 'financial_recommendation.html')
+def yes_no_question(request):
+    return render(request,"ques.html")
