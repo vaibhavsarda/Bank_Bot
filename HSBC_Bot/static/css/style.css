@@ -804,4 +804,79 @@ span.material-symbols-rounded {
     background-color: #ff0000; /* Change to the color you want while recording */
     color: #fff; /* Change to the text color you want while recording */
   }
-  
+
+.modal-content {
+    width: 500px;
+    height: 500px;
+    background-image: url(../images/financial_questionnaire_background.jpeg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    border: none;
+    margin: 2px auto;
+    z-index: 1100 !important;
+}
+
+.modal-backdrop {
+    display: none;
+    z-index: 1040 !important;
+}
+
+.modal-header {
+    border-bottom: 1px solid #555;
+}
+
+.modal-title {
+    color: #ffc107;
+}
+
+.close {
+    color: #fff;
+    opacity: 1;
+}
+
+.close:hover {
+    color: #fff;
+    opacity: 1;
+}
+
+.question-number {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.question {
+    margin: 5%;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.answer-input {
+    background: transparent;
+    border: 2px solid #ffc107;
+    color: #fff;
+}
+
+.modal-footer {
+    border-top: 1px solid #555;
+}
+
+#nextQuestionBtn {
+    background-color: #ffc107;
+    color: #333;
+}
+
+#nextQuestionBtn:hover {
+    background-color: #333;
+    color: #ffc107;
+}
+
+div.transbox {
+  margin: 20px;
+  width: 460px;
+  height: 350px;
+  background-position: center;
+  background-color: #ffffff;
+  border: 1px solid black;
+  opacity: 0.6;
+}

@@ -23,3 +23,7 @@ def get_gpt_response(request):
         gpt_response = response.choices[0]["text"]
         return JsonResponse({'data': gpt_response})
     return JsonResponse({'data': "Oops! Something went wrong while retrieving the response. Please try again."})
+
+
+def get_financial_recommendation(request):
+    return render(request, 'financial_recommendation.html')

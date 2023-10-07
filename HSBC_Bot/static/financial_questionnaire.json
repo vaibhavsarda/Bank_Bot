@@ -1,0 +1,27 @@
+{
+  "questionnaire": [
+    {
+      "question": "What is your age?",
+      "verification": "numeric"
+    },
+    {
+      "question": "What is your gender?"
+    },
+    {
+      "question": "Where do you reside?"
+    },
+    {
+      "question": "What is your primary financial goal?"
+    },
+    {
+      "question": "By what age do you want to retire?",
+      "verification": "numeric"
+    },
+    {
+      "question": "How do you typically make purchasing decisions? Are you price-sensitive, brand loyal, or influenced by reviews and recommendations?"
+    },
+    {
+      "question": "What are your hobbies?"
+    }
+  ]
+}
