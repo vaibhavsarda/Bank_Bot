@@ -75,7 +75,7 @@ const loadDataFromLocalstorage = () => {
     themeButton.innerText = document.body.classList.contains("light-mode") ? "dark_mode" : "light_mode";
 
     const defaultText = `<div class="default-text">
-                            <h1>TO ACTIVATE say 'HI LUMOS' </h1>
+                            <h1>LUMOS </h1>
                             <p>Start a conversation and explore the power of AI.<br> Your chat history will be displayed here.</p>
                         </div>`
 
@@ -93,11 +93,11 @@ startListeningButton.addEventListener("click", function () {
 
     recognition.onstart = function () {
         startListeningButton.style.display = "none";
-        // stopListeningButton.style.display = "block";
+        stopListeningButton.style.display = "block";
     }
 
     recognition.onend = function () {
-        // startListeningButton.style.display = "block";
+        startListeningButton.style.display = "block";
         stopListeningButton.style.display = "none";
     }
 

@@ -79,6 +79,12 @@ body {
       transition-duration: 0s !important;
     }
   }
+
+.material-symbols-rounded {
+  cursor: pointer;
+  font-size: 24px;
+}
+
    #h5{
     text-align: center;
     padding-top: 60%;
@@ -128,7 +134,7 @@ body {
       svg {
         position: relative;
         z-index: 1;
-        display: block;
+        /* display: block; */
         width: 24px;
         height: 24px;
         transform: translateZ(0);
@@ -523,10 +529,6 @@ body {
   }
   
  
-
-
-
-
   body {
     min-height: 100vh;
     display: flex;
@@ -576,8 +578,6 @@ body {
   --outgoing-chat-border: #FFFFFF;
   --incoming-chat-border: #D9D9E3;
 }
-
-
 body {
   background: var(--outgoing-chat-bg);
 }
@@ -615,6 +615,7 @@ body {
 .default-text p {
   margin-top: 10px;
   font-size: 1.1rem;
+  color: white;
 }
 .default-text h3{
   text-align: center;
@@ -712,7 +713,7 @@ span.material-symbols-rounded {
   display: flex;
   padding: 20px 10px;
   justify-content: center;
-  background: var(--outgoing-chat-bg);
+  /* background: var(--outgoing-chat-bg); */
   border-top: 1px solid var(--incoming-chat-border);
 }
 .typing-container .typing-content {
@@ -811,135 +812,38 @@ span.material-symbols-rounded {
   span.material-symbols-rounded {
     font-size: 1.25rem!important;
   }
-
-
 }
 
-body{
-  
-.dialog-button {
-  position: fixed;
-  bottom: 40%;
-  text-align: center;
-  color:white;
-}
-
-.dialog-button p{
-  color:#a1a1aa;
-  font-size: 30px;
-
-}
-
-.dialog-button button {
-  background-color: #3a3a47;
-  color: rgb(168, 168, 137) ;
-  border-radius: 5px;
-  font-size: 30px;
-  margin: 10px;
-  padding: 8px;
-  border: none;
-  cursor: pointer;
-}
-}
+.recording {
+    background-color: #ff0000; /* Change to the color you want while recording */
+    color: #fff; /* Change to the text color you want while recording */
+  }
 
 
-.modal-content {
-    width: 500px;
-    height: 500px;
-    background-image: url(../images/financial_questionnaire_background.jpeg);
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
-    border: none;
-    margin: 2px auto;
-    z-index: 1100 !important;
-}
+  #snackbar {
+    visibility: hidden; /* Hidden by default. Visible on click */
+    min-width: 250px; /* Set a default minimum width */
+    margin-left: -125px; /* Divide value of min-width by 2 */
+    background-color: #303030; /* Black background color */
+    color: #fff; /* White text color */
+    text-align: center; /* Centered text */
+    border-radius: 5px; /* Rounded borders */
+    padding: 16px; /* Padding */
+    position: fixed; /* Sit on top of the screen */
+    z-index: 1000000; /* Add a z-index if needed */
+    left: 50%; /* Center the snackbar */
+    bottom: 30px; /* 30px from the bottom */
+    font-family: comfortaa, sans-serif;
+  }
 
-.modal-backdrop {
-    display: none;
-    z-index: 1040 !important;
-}
+  /* Show the snackbar when clicking on a button (class added with JavaScript) */
+  #snackbar.show {
+    visibility: visible; /* Show the snackbar */
+    /* Add animation: Take 0.5 seconds to fade in and out the snackbar.
+      However, delay the fade out process for 2.5 seconds */
+    -webkit-animation: fadein 0.5s, fadeout 0.5s 5.5s;
+    animation: fadein 0.5s, fadeout 0.5s 5.5s;
+  }
 
-.modal-header {
-    border-bottom: 1px solid #555;
-}
 
-.modal-title {
-    color: #ffc107;
-}
 
-.close {
-    color: #fff;
-    opacity: 1;
-}
-
-.close:hover {
-    color: #fff;
-    opacity: 1;
-}
-
-.question-number {
-    font-size: 18px;
-    margin-bottom: 10px;
-}
-
-.question {
-    margin: 5%;
-    font-size: 24px;
-    font-weight: bold;
-}
-
-.answer-input {
-    background: transparent;
-    border: 2px solid #ffc107;
-    color: #fff;
-}
-
-.modal-footer {
-    border-top: 1px solid #555;
-}
-
-#nextQuestionBtn {
-    background-color: #ffc107;
-    color: #333;
-}
-
-#nextQuestionBtn:hover {
-    background-color: #333;
-    color: #ffc107;
-}
-
-div.transbox {
-  margin: 20px;
-  width: 460px;
-  height: 350px;
-  background-position: center;
-  background-color: #ffffff;
-  border: 1px solid black;
-  opacity: 0.6;
-}
-
-#snackbar {
-	visibility: hidden; /* Hidden by default. Visible on click */
-	min-width: 250px; /* Set a default minimum width */
-	margin-left: -125px; /* Divide value of min-width by 2 */
-	background-color: #303030; /* Black background color */
-	color: #fff; /* White text color */
-	text-align: center; /* Centered text */
-	border-radius: 5px; /* Rounded borders */
-	padding: 16px; /* Padding */
-	position: fixed; /* Sit on top of the screen */
-	z-index: 1000000; /* Add a z-index if needed */
-	left: 50%; /* Center the snackbar */
-	bottom: 30px; /* 30px from the bottom */
-	font-family: comfortaa, sans-serif;
-}
-
-/* Show the snackbar when clicking on a button (class added with JavaScript) */
-#snackbar.show {
-	visibility: visible; /* Show the snackbar */
-	/* Add animation: Take 0.5 seconds to fade in and out the snackbar.
-    However, delay the fade out process for 2.5 seconds */
-	-webkit-animation: fadein 0.5s, fadeout 0.5s 5.5s;
-	animation: fadein 0.5s, fadeout 0.5s 5.5s;
-}
