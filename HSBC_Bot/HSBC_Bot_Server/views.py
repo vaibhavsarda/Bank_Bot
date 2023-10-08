@@ -35,14 +35,14 @@ def get_products_and_services(request):
         user_responses = request.GET.get('userResponses')
         user_responses = json.loads(user_responses)["userResponses"]
 
-        user_question = "My name is {0}"\
-                        "My age is {1}."\
-                        "I am a {2}."\
-                        "I live in {3}."\
-                        "My primary financial goal: {4}."\
-                        "I want to retire by the age of {5}."\
-                        "My purchasing decision-making behavior: {6}."\
-                        "My hobbies: {7}."\
+        user_question = "My name is {0}. "\
+                        "My age is {1}. "\
+                        "I am a {2}. "\
+                        "I live in {3}. "\
+                        "My primary financial goal: {4}. "\
+                        "I want to retire by the age of {5}. "\
+                        "My purchasing decision-making behavior: {6}. "\
+                        "My hobbies: {7}. "\
                         "Based on this information, please recommend me financial products and services from HSBC Bank."\
                         .format(
                             user_responses[0]["answer"],
