@@ -1,15 +1,20 @@
-
 const chatInput = document.querySelector("#chat-input");
 const sendButton = document.querySelector("#send-btn");
 const chatContainer = document.querySelector(".chat-container");
 const themeButton = document.querySelector("#theme-btn");
 const deleteButton = document.querySelector("#delete-btn");
 const startListeningButton = document.getElementById("start-voice");
+const stopListeningButton = document.getElementById("stop-listening");
 const chatLog = document.getElementById("chat-input");
 
+
+
 let userText = null;
-let inputTimer = null; // Timer to track user input pauses
+const startButton = document.getElementById('start-voice');
 const output = document.getElementById('recognized-text');
+
+// JavaScript for handling chat interactions
+
 
 // Function to add a message to the chat log
 function addMessage(message, sender) {
@@ -20,81 +25,22 @@ function addMessage(message, sender) {
     chatLog.scrollTop = chatLog.scrollHeight; // Scroll to the bottom
 }
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 25121d4eedc31a3d2c5aa2186b840e1e396b4a7a
-function onYesClick(){
-    alert("you clicked yes");
-             //write the code here
-             $.ajax({
-                type: 'GET',
-                url: '/HSBC_Bot_Server/get_financial_recommendation/',
-                data: {
-                    'text': userText
-                },
-                success: (res)=> {
-                    response = res.data;
-                    pElement.textContent = response.trim();
-                    speakAiResponse(response);
-                    startListeningButton.style.display = "block";
-                    
-                },
-                error: ()=> {
-                    console.log("There was an error");
-                    pElement.classList.add("error");
-                    response = "Oops! Something went wrong while retrieving the response. Please try again.";
-                    pElement.textContent = response;
-                    speakAiResponse(response);
-                    startListeningButton.style.display = "block";
-                   
-                }
-            });
-          
-}
-function redirectToPage(url) {
-    // Use the window.location.href property to navigate to the specified URL
-    window.location.href = url;
-  }
-
-function onNoClick() {
-<<<<<<< HEAD
-   // alert("you clicked no");
-    window.location.href =  "script.js";
-    // Remove the question and everything inside the 'questionDiv'
-   // var questionDiv = document.getElementById("questionDiv");
-    //questionDiv.parentNode.removeChild(questionDiv);
-=======
-    alert("you clicked no");
-    $.ajax({
-        type: 'GET',
-        url: '/HSBC_Bot_Server/',
-        data: {
-            'text': userText
-        },
-        success: (res)=> {
-            response = res.data;
-           
-            
-        },
-        error: ()=> {
-            console.log("There was an error");
-           
-           
-        }
-    });
-
-        // Remove the question and everything inside the 'questionDiv'
-        var questionDiv = document.getElementById("questionDiv");
-        questionDiv.parentNode.removeChild(questionDiv);
->>>>>>> 25121d4eedc31a3d2c5aa2186b840e1e396b4a7a
-        // You can add your custom logic here for 'No'.
-    }
-document.getElementById("yesButton").addEventListener("click", onYesClick);
-document.getElementById("noButton").addEventListener("click", onNoClick);
-
 // Event listener for the send button
+sendButton.addEventListener("click", function () {
+    const userMessage = userInput.value;
+    addMessage(userMessage, "user");
 
+    // Send the user's message to the server (or chatbot) for processing here
+    // You would typically make an API request to a chatbot service
+
+    // For this example, let's just simulate a response from the chatbot
+    setTimeout(function () {
+        const botResponse = "This is a sample response from ChatGPT.";
+        addMessage(botResponse, "bot");
+    }, 1000); // Simulate a delay
+
+    userInput.value = ""; // Clear the user input field
+});
 
 // Simulate an initial greeting from the bot when the page loads
 addMessage("Hello! How can I assist you?", "bot");
@@ -116,7 +62,7 @@ if ('SpeechRecognition' in window || 'webkitSpeechRecognition' in window) {
         output.textContent = 'Error occurred: ' + event.error;
     };
 
-    startListeningButton.addEventListener('click', () => {
+    startButton.addEventListener('click', () => {
         recognition.start();
     });
 } else {
@@ -132,16 +78,12 @@ const loadDataFromLocalstorage = () => {
 
     const defaultText = `<div class="default-text">
                             <h1>TO ACTIVATE say 'HI LUMOS' </h1>
-                            <p>Start a conversation and explore the power of AI.<br> Your chat history will be displayed here.</p><br>
-
+                            <p>Start a conversation and explore the power of AI.<br> Your chat history will be displayed here.</p>
                         </div>`
 
-
-
     chatContainer.innerHTML = localStorage.getItem("all-chats") || defaultText;
-    chatContainer.scrollTo(0, chatContainer.scrollHeight); // Scroll to the bottom of the chat container
+    chatContainer.scrollTo(0, chatContainer.scrollHeight); // Scroll to bottom of the chat container
 }
-
 
 let recognition;
 
@@ -153,29 +95,21 @@ startListeningButton.addEventListener("click", function () {
 
     recognition.onstart = function () {
         startListeningButton.style.display = "none";
+        // stopListeningButton.style.display = "block";
     }
-    recognition.onend = () => {
-        timeout = setTimeout(() => {
-            recognition.stop();
-            document.getElementById('stopButton').disabled = true;
-            document.getElementById('startButton').disabled = false;
-<<<<<<< HEAD
-        }, 1000);
-=======
-        }, 100);
->>>>>>> 25121d4eedc31a3d2c5aa2186b840e1e396b4a7a
-    };
 
-   /* recognition.onend = function () {
-        startListeningButton.style.display = "block";
-
-    }*/
+    recognition.onend = function () {
+        // startListeningButton.style.display = "block";
+        stopListeningButton.style.display = "none";
+    }
 
     recognition.onresult = function (event) {
         const transcript = event.results[event.results.length - 1][0].transcript;
         appendMessage("You: " + transcript, "user");
 
-        chatInput.value = transcript;
+        console.log("Transcribed text: "+transcript);
+
+        chatInput.value = transcript
         if (window.innerWidth > 800) {
             handleOutgoingChat();
         }
@@ -192,6 +126,12 @@ startListeningButton.addEventListener("click", function () {
     recognition.start();
 });
 
+stopListeningButton.addEventListener("click", function () {
+    if (recognition) {
+        recognition.stop();
+    }
+});
+
 function appendMessage(message, sender) {
     const messageElement = document.createElement("div");
     messageElement.className = `message ${sender}`;
@@ -200,18 +140,19 @@ function appendMessage(message, sender) {
     chatLog.scrollTop = chatLog.scrollHeight;
 }
 
-
 const createChatElement = (content, className) => {
+    // Create new div and apply chat, specified class and set html content of div
     const chatDiv = document.createElement("div");
     chatDiv.classList.add("chat", className);
     chatDiv.innerHTML = content;
-    return chatDiv;
+    return chatDiv; // Return the created chat div
 }
 
 const getChatResponse = async (incomingChatDiv) => {
     const pElement = document.createElement("p");
     let response = null;
-  $.ajax({
+
+    $.ajax({
         type: 'GET',
         url: '/HSBC_Bot_Server/get_gpt_response',
         data: {
@@ -222,7 +163,7 @@ const getChatResponse = async (incomingChatDiv) => {
             pElement.textContent = response.trim();
             speakAiResponse(response);
             startListeningButton.style.display = "block";
-            
+            stopListeningButton.style.display = "block";
         },
         error: ()=> {
             console.log("There was an error");
@@ -231,13 +172,11 @@ const getChatResponse = async (incomingChatDiv) => {
             pElement.textContent = response;
             speakAiResponse(response);
             startListeningButton.style.display = "block";
-           
+            stopListeningButton.style.display = "block";
         }
     });
 
-
-
-    // Remove the typing animation, append the paragraph element, and save the chats to local storage
+    // Remove the typing animation, append the paragraph element and save the chats to local storage
     incomingChatDiv.querySelector(".typing-animation").remove();
     incomingChatDiv.querySelector(".chat-details").appendChild(pElement);
     localStorage.setItem("all-chats", chatContainer.innerHTML);
@@ -245,24 +184,35 @@ const getChatResponse = async (incomingChatDiv) => {
 }
 
 const speakAiResponse = (aiResponse) => {
+    // Synthesize and speak the text
     const speechSynthesis = window.speechSynthesis;
     const aiUtterance = new SpeechSynthesisUtterance(aiResponse);
     aiUtterance.lang = 'en-US';
     speechSynthesis.speak(aiUtterance);
 }
 
+const copyResponse = (copyBtn) => {
+    // Copy the text content of the response to the clipboard
+    const reponseTextElement = copyBtn.parentElement.querySelector("p");
+    navigator.clipboard.writeText(reponseTextElement.textContent);
+    copyBtn.textContent = "done";
+    setTimeout(() => copyBtn.textContent = "content_copy", 1000);
+}
+
 const showTypingAnimation = () => {
+    // Display the typing animation and call the getChatResponse function
     const html = `<div class="chat-content">
                     <div class="chat-details">
-                        <img src="/static/images/chatbot.jpg" alt="chatbot-img">
+                        <img src="/static/images/chatbot.jpg" defer" alt="chatbot-img">
                         <div class="typing-animation">
                             <div class="typing-dot" style="--delay: 0.2s"></div>
                             <div class="typing-dot" style="--delay: 0.3s"></div>
                             <div class="typing-dot" style="--delay: 0.4s"></div>
                         </div>
                     </div>
+                    <span onclick="copyResponse(this)" class="material-symbols-rounded">content_copy</span>
                 </div>`;
-
+    // Create an incoming chat div with typing animation and append it to chat container
     const incomingChatDiv = createChatElement(html, "incoming");
     chatContainer.appendChild(incomingChatDiv);
     chatContainer.scrollTo(0, chatContainer.scrollHeight);
@@ -270,9 +220,10 @@ const showTypingAnimation = () => {
 }
 
 const handleOutgoingChat = () => {
-    userText = chatInput.value.trim();
-    if (!userText) return;
+    userText = chatInput.value.trim(); // Get chatInput value and remove extra spaces
+    if(!userText) return; // If chatInput is empty return from here
 
+    // Clear the input field and reset its height
     chatInput.value = "";
     chatInput.style.height = `${initialInputHeight}px`;
 
@@ -283,6 +234,7 @@ const handleOutgoingChat = () => {
                     </div>
                 </div>`;
 
+    // Create an outgoing chat div with user's message and append it to chat container
     const outgoingChatDiv = createChatElement(html, "outgoing");
     chatContainer.querySelector(".default-text")?.remove();
     chatContainer.appendChild(outgoingChatDiv);
@@ -291,13 +243,15 @@ const handleOutgoingChat = () => {
 }
 
 deleteButton.addEventListener("click", () => {
-    if (confirm("Are you sure you want to delete all the chats?")) {
+    // Remove the chats from local storage and call loadDataFromLocalstorage function
+    if(confirm("Are you sure you want to delete all the chats?")) {
         localStorage.removeItem("all-chats");
         loadDataFromLocalstorage();
     }
 });
 
 themeButton.addEventListener("click", () => {
+    // Toggle body's class for the theme mode and save the updated theme to the local storage 
     document.body.classList.toggle("light-mode");
     localStorage.setItem("themeColor", themeButton.innerText);
     themeButton.innerText = document.body.classList.contains("light-mode") ? "dark_mode" : "light_mode";
@@ -305,13 +259,15 @@ themeButton.addEventListener("click", () => {
 
 const initialInputHeight = chatInput.scrollHeight;
 
-chatInput.addEventListener("input", () => {
-     // Adjust the height of the input field dynamically based on its content
-     chatInput.style.height =  `${initialInputHeight}px`;
-     chatInput.style.height = `${chatInput.scrollHeight}px`;
+chatInput.addEventListener("input", () => {   
+    // Adjust the height of the input field dynamically based on its content
+    chatInput.style.height =  `${initialInputHeight}px`;
+    chatInput.style.height = `${chatInput.scrollHeight}px`;
 });
 
 chatInput.addEventListener("keydown", (e) => {
+    // If the Enter key is pressed without Shift and the window width is larger 
+    // than 800 pixels, handle the outgoing chat
     if (e.key === "Enter" && !e.shiftKey && window.innerWidth > 800) {
         e.preventDefault();
         handleOutgoingChat();
