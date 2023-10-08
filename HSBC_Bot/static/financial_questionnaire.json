@@ -15,7 +15,7 @@
       "max_words": 5
     },
     {
-      "question": "What is your primary financial goal?",
+      "question": "What financial objective holds the highest priority for you? (Options could include, but are not limited to, funding your child's education, obtaining insurance coverage, or investing in securities, etc.)",
       "max_words": 15
     },
     {

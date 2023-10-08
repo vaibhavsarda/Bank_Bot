@@ -59,7 +59,7 @@ function askPersonaQuestions(data) {
         // Display the typing animation and call the getFinancialRecommendation function
         const html = `<div class="chat-content">
                         <div class="chat-details">
-                            <img src="/static/images/chatbot.jpg" defer" alt="chatbot-img">
+                            <img src="/static/images/lumo.png" defer" alt="chatbot-img">
                             <div class="typing-animation">
                                 <div class="typing-dot" style="--delay: 0.2s"></div>
                                 <div class="typing-dot" style="--delay: 0.3s"></div>
@@ -161,7 +161,7 @@ function askPersonaQuestions(data) {
 
     function createChat(chatType, chatText) {
         let chatImageBasePath = '/static/images/';
-        let chatImageName = chatType == "incoming" ? 'chatbot.jpg' : 'user.jpg';
+        let chatImageName = chatType == "incoming" ? 'lumo.png' : 'user.jpg';
         let chatImagePath = chatImageBasePath + chatImageName;
 
         let altText = chatType == "incoming" ? "bot-img" : "user-img";
