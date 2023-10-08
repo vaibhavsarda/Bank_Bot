@@ -814,6 +814,33 @@ span.material-symbols-rounded {
   }
 }
 
+body{
+
+    .dialog-button {
+      position: fixed;
+      bottom: 40%;
+      text-align: center;
+      color:white;
+    }
+
+    .dialog-button p{
+      color:#a1a1aa;
+      font-size: 30px;
+
+    }
+
+    .dialog-button button {
+      background-color: #3a3a47;
+      color: rgb(168, 168, 137) ;
+      border-radius: 5px;
+      font-size: 30px;
+      margin: 10px;
+      padding: 8px;
+      border: none;
+      cursor: pointer;
+    }
+}
+
 .recording {
     background-color: #ff0000; /* Change to the color you want while recording */
     color: #fff; /* Change to the text color you want while recording */

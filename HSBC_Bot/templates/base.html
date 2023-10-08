@@ -25,46 +25,98 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui-touch-punch/0.2.3/jquery.ui.touch-punch.min.js"></script>
 <!--    <script src="https://cdnjs.cloudflare.com/ajax/libs/speechrecognition/4.0.4/speech-recognition.min.js"></script>-->
 
+    <style>
+      body  {
+        background-image: url('/static/images/lumo.png');
+        background-size:cover;
+              -webkit-animation: slidein 100s;
+              animation: slidein 100s;
+
+              -webkit-animation-fill-mode: backwards;
+              animation-fill-mode: backwards;
+
+              -webkit-animation-iteration-count: infinite;
+              animation-iteration-count: infinite;
+
+              -webkit-animation-direction: alternate;
+              animation-direction: alternate;
+      }
+
+      @-webkit-keyframes slidein {
+      from {background-position: top; background-size:1000px; }
+      to {background-position: -100px 0px;background-size:2750;}
+      }
+
+      @keyframes slidein {
+      from {background-position: top;background-size:1000px; }
+      to {background-position: -100px 0px;background-size:2750px;}
+
+      }
+
+
+
+      .center
+      {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: absolute;
+        margin: auto;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        background: rgba(75, 75, 250, 0.3);
+        border-radius: 3px;
+      }
+      .center h1{
+        text-align:center;
+        color:white;
+        font-family: 'Source Code Pro', monospace;
+        text-transform:uppercase;
+      }
+    </style>
+
   </head>
   <body>
 
-
-    <div class="chat-log" id="chat-log">
-        <!-- Chat messages will appear here -->
-    </div>
-    <!-- Chats container -->
-    <div class="chat-container"></div>
-
-
-
-    <!-- Typing container -->
-    <div class="typing-container">
-
-<!--     &lt;!&ndash; Financial Recommendation Questionnaire Button &ndash;&gt;-->
-<!--     <div class="container">-->
-<!--         <button class="btn btn-primary" data-toggle="modal" data-target="#harryPotterModal">-->
-<!--             Start Questionnaire-->
-<!--         </button>-->
-<!--     </div>-->
-
-      <div class="typing-content">
-        <div class="typing-textarea">
-
-          <textarea id="chat-input" spellcheck="false" placeholder="Send message" required></textarea>
-          <div class="recognized-text" id="recognized-text"></div>
-          <span id="send-btn" class="material-symbols-rounded">send</span>
-        </div>
-        <div class="typing-controls">
-
-          <span id="start-voice" class="material-symbols-rounded">mic</span>
-          <span id="theme-btn" class="material-symbols-rounded">light_mode</span>
-          <span id="delete-btn" class="material-symbols-rounded">delete</span>
-          <span id="stop-listening"  class="material-symbols-rounded" >stop</span>
+    <div class="center">
+      <div class="chat-log" id="chat-log">
+          <!-- Chat messages will appear here -->
       </div>
-    </div>
+      <!-- Chats container -->
+      <div class="chat-container"></div>
 
-    {% block body %}
-    {% endblock body %}
+
+
+      <!-- Typing container -->
+      <div class="typing-container">
+
+  <!--     &lt;!&ndash; Financial Recommendation Questionnaire Button &ndash;&gt;-->
+  <!--     <div class="container">-->
+  <!--         <button class="btn btn-primary" data-toggle="modal" data-target="#harryPotterModal">-->
+  <!--             Start Questionnaire-->
+  <!--         </button>-->
+  <!--     </div>-->
+
+        <div class="typing-content">
+          <div class="typing-textarea">
+
+            <textarea id="chat-input" spellcheck="false" placeholder="Send message" required></textarea>
+            <div class="recognized-text" id="recognized-text"></div>
+            <span id="send-btn" class="material-symbols-rounded">send</span>
+          </div>
+          <div class="typing-controls">
+
+            <span id="start-voice" class="material-symbols-rounded">mic</span>
+            <span id="theme-btn" class="material-symbols-rounded">light_mode</span>
+            <span id="delete-btn" class="material-symbols-rounded">delete</span>
+            <span id="stop-listening"  class="material-symbols-rounded" >stop</span>
+        </div>
+      </div>
+
+      {% block body %}
+      {% endblock body %}
 
 <!--        &lt;!&ndash; Financial Recommendation Questionnaire &ndash;&gt;-->
 <!--        <div class="modal" id="harryPotterModal" tabindex="-1" role="dialog">-->
@@ -105,6 +157,7 @@
 <!--    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>-->
 <!--    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>-->
 <!--    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>-->
+    </div>
 
   </body>
 </html>

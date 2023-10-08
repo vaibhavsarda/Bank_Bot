@@ -209,6 +209,10 @@ const get_mail = async (incomingChatDiv) => {
             response = res.data;
             showSnackBar("Image is sent to you successfully");
 
+            setTimeout(function() {
+                window.location.href = '/HSBC_Bot_Server/get_financial_recommendation/';
+            }, 3000);
+
             // pElement.textContent = response.trim();
             // speakAiResponse(response);
             // startListeningButton.style.display = "block";

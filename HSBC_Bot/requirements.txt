@@ -1,2 +1,4 @@
 Django==4.2.5
 openai==0.28.1
+opencv_python==4.8.1.78
+Pillow==10.0.1

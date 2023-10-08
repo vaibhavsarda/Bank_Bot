@@ -154,5 +154,5 @@ def get_products_and_services(request):
 def yes_no_question(request):
     return render(request,"ques.html")
 
-def get_photo(request):
+def photo_yes_no_question(request):
     return render(request,"photo.html")

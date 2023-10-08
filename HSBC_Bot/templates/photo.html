@@ -12,18 +12,77 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui-touch-punch/0.2.3/jquery.ui.touch-punch.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/speechrecognition/4.0.4/speech-recognition.min.js"></script>
-    
+
+    <style>
+
+        h2 {
+            font-size:35px;
+        }
+
+        body  {
+            background-image: url('/static/images/lumo.png');
+            background-size:cover;
+                    -webkit-animation: slidein 100s;
+                    animation: slidein 100s;
+
+                    -webkit-animation-fill-mode: backwards;
+                    animation-fill-mode: backwards;
+
+                    -webkit-animation-iteration-count: infinite;
+                    animation-iteration-count: infinite;
+
+                    -webkit-animation-direction: alternate;
+                    animation-direction: alternate;
+            }
+
+        @-webkit-keyframes slidein {
+        from {background-position: top; background-size:1000px; }
+        to {background-position: -100px 0px;background-size:2750;}
+        }
+
+        @keyframes slidein {
+        from {background-position: top;background-size:1000px; }
+        to {background-position: -100px 0px;background-size:2750px;}
+
+        }
+
+
+
+        .center
+        {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          position: absolute;
+          margin: auto;
+          top: 0;
+          right: 0;
+          bottom: 0;
+          left: 0;
+          background: rgba(75, 75, 250, 0.3);
+          border-radius: 3px;
+        }
+        .center h1{
+          text-align:center;
+          color:white;
+          font-family: 'Source Code Pro', monospace;
+          text-transform:uppercase;
+        }
+
+    </style>
 
 </head>
 <body>
-<div class="dialog-button" id="questionDiv">
-    <p> Do you want to take a picture with me? </p>
-     <!-- Yes button -->
-     <button id="accept" style="color:blue;" >Yes</button>
+<div class="center">
+    <div class="dialog-button" id="questionDiv">
+        <h2 style="color:white;"> Do you want to take a picture with me? </h2>
+         <!-- Yes button -->
+         <button id="accept" style="background:#0ba6ff; color:white;">Yes</button>
 
-     <!-- No button -->
-     <button id="decline">No</button>
-   
+         <!-- No button -->
+         <button id="decline" style="background:#e31757; color:white;">No</button>
+
+    </div>
 </div>
 </body>
 </html>
