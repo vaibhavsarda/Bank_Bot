@@ -75,13 +75,23 @@ function askPersonaQuestions(data) {
         getFinancialRecommendation(incomingChatDiv);
     }
 
+    // Provides word count of text
+    function wordCount(str) {
+      var m = str.match(/[^\s]+/g)
+      return m ? m.length : 0;
+    }
 
     // Display outgoing chat
     const handleOutgoingChat = () => {
         let userText = chatInput.value.trim(); // Get chatInput value and remove extra spaces
 
         // Verification Checks
-        if(!userText) return; // If chatInput is empty return from here
+
+        // If chatInput is empty return from here
+        if(!userText) {
+            showSnackBar("Please enter a response.");
+            return;
+        }
 
         // If verification check is enabled and userText is not Int return from here
         if(questionnaire[questionNum]["verification"] == "numeric" && !isInt(userText)) {
@@ -89,6 +99,19 @@ function askPersonaQuestions(data) {
             chatInput.value = "";
             chatInput.style.height = `${initialInputHeight}px`;
             return;
+        }
+
+        // If there is a word limit for a particular question and userText exceeds that word limit then return from here
+        if("max_words" in questionnaire[questionNum]) {
+
+            max_words = questionnaire[questionNum]["max_words"]
+
+            if(wordCount(userText) > max_words) {
+                showSnackBar(`Please reduce your response size. It can be maximum ${max_words} words long.`);
+                chatInput.value = "";
+                chatInput.style.height = `${initialInputHeight}px`;
+                return;
+            }
         }
 
         // Store user's answer
@@ -108,6 +131,9 @@ function askPersonaQuestions(data) {
 
     const handleBotChat = () => {
 
+        // Reset placeholder text
+        chatInput.placeholder = "Send message";
+
         if(questionNum == questionnaire.length) {
             setTimeout(showTypingAnimation, 5000);
             return;
@@ -120,6 +146,17 @@ function askPersonaQuestions(data) {
 
         // Create an outgoing chat div with bot's message and append it to chat container
         createChat("incoming", botTextTrimmed);
+
+        // Update placeholder text if a question requires a numeric response only
+        if("verification" in questionnaire[questionNum] && questionnaire[questionNum]["verification"] == "numeric") {
+            chatInput.placeholder = "Send message (Please enter a number)";
+        }
+
+        // Update placeholder text if there is a word limit for a particular question
+        if("max_words" in questionnaire[questionNum]) {
+            max_words = questionnaire[questionNum]["max_words"];
+            chatInput.placeholder = `Send message (Maximum words: ${max_words})`;
+        }
     }
 
     function createChat(chatType, chatText) {
