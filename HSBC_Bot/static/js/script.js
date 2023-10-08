@@ -7,8 +7,6 @@ const startListeningButton = document.getElementById("start-voice");
 const stopListeningButton = document.getElementById("stop-listening");
 const chatLog = document.getElementById("chat-input");
 
-
-
 let userText = null;
 const startButton = document.getElementById('start-voice');
 const output = document.getElementById('recognized-text');
@@ -107,7 +105,7 @@ startListeningButton.addEventListener("click", function () {
         const transcript = event.results[event.results.length - 1][0].transcript;
         appendMessage("You: " + transcript, "user");
 
-        console.log("Transcribed text: "+transcript);
+        console.log("Transcribed text: " + transcript);
 
         chatInput.value = transcript
         if (window.innerWidth > 800) {
@@ -158,14 +156,14 @@ const getChatResponse = async (incomingChatDiv) => {
         data: {
             'text': userText
         },
-        success: (res)=> {
+        success: (res) => {
             response = res.data;
             pElement.textContent = response.trim();
             speakAiResponse(response);
             startListeningButton.style.display = "block";
             stopListeningButton.style.display = "block";
         },
-        error: ()=> {
+        error: () => {
             console.log("There was an error");
             pElement.classList.add("error");
             response = "Oops! Something went wrong while retrieving the response. Please try again.";
@@ -221,7 +219,7 @@ const showTypingAnimation = () => {
 
 const handleOutgoingChat = () => {
     userText = chatInput.value.trim(); // Get chatInput value and remove extra spaces
-    if(!userText) return; // If chatInput is empty return from here
+    if (!userText) return; // If chatInput is empty return from here
 
     // Clear the input field and reset its height
     chatInput.value = "";
@@ -244,7 +242,7 @@ const handleOutgoingChat = () => {
 
 deleteButton.addEventListener("click", () => {
     // Remove the chats from local storage and call loadDataFromLocalstorage function
-    if(confirm("Are you sure you want to delete all the chats?")) {
+    if (confirm("Are you sure you want to delete all the chats?")) {
         localStorage.removeItem("all-chats");
         loadDataFromLocalstorage();
     }
@@ -259,9 +257,9 @@ themeButton.addEventListener("click", () => {
 
 const initialInputHeight = chatInput.scrollHeight;
 
-chatInput.addEventListener("input", () => {   
+chatInput.addEventListener("input", () => {
     // Adjust the height of the input field dynamically based on its content
-    chatInput.style.height =  `${initialInputHeight}px`;
+    chatInput.style.height = `${initialInputHeight}px`;
     chatInput.style.height = `${chatInput.scrollHeight}px`;
 });
 

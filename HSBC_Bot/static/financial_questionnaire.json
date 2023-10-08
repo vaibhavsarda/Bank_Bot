@@ -1,0 +1,34 @@
+{
+  "questionnaire": [
+    {
+      "question": "What is your name?"
+    },
+    {
+      "question": "What is your age?",
+      "verification": "numeric"
+    },
+    {
+      "question": "What is your gender?"
+    },
+    {
+      "question": "Where do you reside?",
+      "max_words": 5
+    },
+    {
+      "question": "What financial objective holds the highest priority for you? (Options could include, but are not limited to, funding your child's education, obtaining insurance coverage, or investing in securities, etc.)",
+      "max_words": 15
+    },
+    {
+      "question": "By what age do you want to retire?",
+      "verification": "numeric"
+    },
+    {
+      "question": "How do you typically make purchasing decisions? Are you price-sensitive, brand loyal, or influenced by reviews and recommendations?",
+      "max_words": 15
+    },
+    {
+      "question": "What are your hobbies?",
+      "max_words": 10
+    }
+  ]
+}

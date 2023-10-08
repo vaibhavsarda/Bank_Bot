@@ -6,7 +6,6 @@
   box-sizing: border-box;
   font-family: "Poppins", sans-serif;
 }
-
 body {
     --background-color: #18181B;
     --text-color: #A1A1AA;
@@ -86,6 +85,10 @@ body {
   font-size: 24px;
 }
 
+   #h5{
+    text-align: center;
+    padding-top: 60%;
+   }
   .grid {
     display: grid;
     grid-template-columns: repeat(2, 240px);
@@ -614,6 +617,10 @@ body {
   font-size: 1.1rem;
   color: white;
 }
+.default-text h3{
+  text-align: center;
+  padding-top: 150px;
+}
 .chat-container .chat {
   padding: 25px 10px;
   display: flex;
@@ -828,7 +835,7 @@ span.material-symbols-rounded {
     bottom: 30px; /* 30px from the bottom */
     font-family: comfortaa, sans-serif;
   }
-  
+
   /* Show the snackbar when clicking on a button (class added with JavaScript) */
   #snackbar.show {
     visibility: visible; /* Show the snackbar */
@@ -839,5 +846,4 @@ span.material-symbols-rounded {
   }
 
 
-  
-  
+
