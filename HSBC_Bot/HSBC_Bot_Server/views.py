@@ -16,8 +16,7 @@ def get_gpt_response(request):
         text_prompt = request.GET.get('text')
         print("Text Prompt:", text_prompt)
 
-        openai.api_key = "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"
-
+        openai.api_key = "API_KEY"
         response = openai.Completion.create(engine="gpt-3.5-turbo-instruct", prompt=text_prompt, max_tokens=50)
         print("Response:", response)
         gpt_response = response.choices[0]["text"]
