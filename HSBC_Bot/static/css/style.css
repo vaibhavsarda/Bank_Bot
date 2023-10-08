@@ -6,6 +6,7 @@
   box-sizing: border-box;
   font-family: "Poppins", sans-serif;
 }
+
 body {
     --background-color: #18181B;
     --text-color: #A1A1AA;
@@ -79,7 +80,12 @@ body {
       transition-duration: 0s !important;
     }
   }
-  
+
+.material-symbols-rounded {
+  cursor: pointer;
+  font-size: 24px;
+}
+
   .grid {
     display: grid;
     grid-template-columns: repeat(2, 240px);
@@ -125,7 +131,7 @@ body {
       svg {
         position: relative;
         z-index: 1;
-        display: block;
+        /* display: block; */
         width: 24px;
         height: 24px;
         transform: translateZ(0);
@@ -606,6 +612,7 @@ body {
 .default-text p {
   margin-top: 10px;
   font-size: 1.1rem;
+  color: white;
 }
 .chat-container .chat {
   padding: 25px 10px;
@@ -699,7 +706,7 @@ span.material-symbols-rounded {
   display: flex;
   padding: 20px 10px;
   justify-content: center;
-  background: var(--outgoing-chat-bg);
+  /* background: var(--outgoing-chat-bg); */
   border-top: 1px solid var(--incoming-chat-border);
 }
 .typing-container .typing-content {
@@ -804,4 +811,33 @@ span.material-symbols-rounded {
     background-color: #ff0000; /* Change to the color you want while recording */
     color: #fff; /* Change to the text color you want while recording */
   }
+
+
+  #snackbar {
+    visibility: hidden; /* Hidden by default. Visible on click */
+    min-width: 250px; /* Set a default minimum width */
+    margin-left: -125px; /* Divide value of min-width by 2 */
+    background-color: #303030; /* Black background color */
+    color: #fff; /* White text color */
+    text-align: center; /* Centered text */
+    border-radius: 5px; /* Rounded borders */
+    padding: 16px; /* Padding */
+    position: fixed; /* Sit on top of the screen */
+    z-index: 1000000; /* Add a z-index if needed */
+    left: 50%; /* Center the snackbar */
+    bottom: 30px; /* 30px from the bottom */
+    font-family: comfortaa, sans-serif;
+  }
+  
+  /* Show the snackbar when clicking on a button (class added with JavaScript) */
+  #snackbar.show {
+    visibility: visible; /* Show the snackbar */
+    /* Add animation: Take 0.5 seconds to fade in and out the snackbar.
+      However, delay the fade out process for 2.5 seconds */
+    -webkit-animation: fadein 0.5s, fadeout 0.5s 5.5s;
+    animation: fadein 0.5s, fadeout 0.5s 5.5s;
+  }
+
+
+  
   

@@ -77,7 +77,7 @@ const loadDataFromLocalstorage = () => {
     themeButton.innerText = document.body.classList.contains("light-mode") ? "dark_mode" : "light_mode";
 
     const defaultText = `<div class="default-text">
-                            <h1>TO ACTIVATE say 'HI LUMOS' </h1>
+                            <h1>LUMOS </h1>
                             <p>Start a conversation and explore the power of AI.<br> Your chat history will be displayed here.</p>
                         </div>`
 
@@ -95,11 +95,11 @@ startListeningButton.addEventListener("click", function () {
 
     recognition.onstart = function () {
         startListeningButton.style.display = "none";
-        // stopListeningButton.style.display = "block";
+        stopListeningButton.style.display = "block";
     }
 
     recognition.onend = function () {
-        // startListeningButton.style.display = "block";
+        startListeningButton.style.display = "block";
         stopListeningButton.style.display = "none";
     }
 
@@ -203,7 +203,7 @@ const showTypingAnimation = () => {
     // Display the typing animation and call the getChatResponse function
     const html = `<div class="chat-content">
                     <div class="chat-details">
-                        <img src="/static/images/chatbot.jpg" defer" alt="chatbot-img">
+                        <img src="/static/images/lumo.png" defer" alt="chatbot-img">
                         <div class="typing-animation">
                             <div class="typing-dot" style="--delay: 0.2s"></div>
                             <div class="typing-dot" style="--delay: 0.3s"></div>
