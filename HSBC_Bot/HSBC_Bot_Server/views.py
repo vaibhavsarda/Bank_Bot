@@ -62,3 +62,10 @@ def get_products_and_services(request):
         gpt_response = response.choices[0]["text"]
         return JsonResponse({'data': gpt_response})
     return JsonResponse({'data': "Oops! Something went wrong while retrieving the response. Please try again."})
+
+
+def yes_no_question(request):
+    return render(request,"ques.html")
+
+def get_photo(request):
+    return render(request,"photo.html")

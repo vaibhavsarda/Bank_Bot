@@ -79,7 +79,10 @@ body {
       transition-duration: 0s !important;
     }
   }
-  
+   #h5{
+    text-align: center;
+    padding-top: 60%;
+   }
   .grid {
     display: grid;
     grid-template-columns: repeat(2, 240px);
@@ -520,6 +523,10 @@ body {
   }
   
  
+
+
+
+
   body {
     min-height: 100vh;
     display: flex;
@@ -569,6 +576,8 @@ body {
   --outgoing-chat-border: #FFFFFF;
   --incoming-chat-border: #D9D9E3;
 }
+
+
 body {
   background: var(--outgoing-chat-bg);
 }
@@ -606,6 +615,10 @@ body {
 .default-text p {
   margin-top: 10px;
   font-size: 1.1rem;
+}
+.default-text h3{
+  text-align: center;
+  padding-top: 150px;
 }
 .chat-container .chat {
   padding: 25px 10px;
@@ -798,12 +811,37 @@ span.material-symbols-rounded {
   span.material-symbols-rounded {
     font-size: 1.25rem!important;
   }
+
+
 }
 
-.recording {
-    background-color: #ff0000; /* Change to the color you want while recording */
-    color: #fff; /* Change to the text color you want while recording */
-  }
+body{
+  
+.dialog-button {
+  position: fixed;
+  bottom: 40%;
+  text-align: center;
+  color:white;
+}
+
+.dialog-button p{
+  color:#a1a1aa;
+  font-size: 30px;
+
+}
+
+.dialog-button button {
+  background-color: #3a3a47;
+  color: rgb(168, 168, 137) ;
+  border-radius: 5px;
+  font-size: 30px;
+  margin: 10px;
+  padding: 8px;
+  border: none;
+  cursor: pointer;
+}
+}
+
 
 .modal-content {
     width: 500px;
