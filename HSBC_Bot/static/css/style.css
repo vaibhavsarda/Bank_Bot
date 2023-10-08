@@ -819,13 +819,14 @@ body{
   
 .dialog-button {
   position: fixed;
-  bottom: 20%;
+  bottom: 40%;
   text-align: center;
   color:white;
 }
 
 .dialog-button p{
   color:#a1a1aa;
+  font-size: 30px;
 
 }
 
@@ -833,6 +834,7 @@ body{
   background-color: #3a3a47;
   color: rgb(168, 168, 137) ;
   border-radius: 5px;
+  font-size: 30px;
   margin: 10px;
   padding: 8px;
   border: none;
