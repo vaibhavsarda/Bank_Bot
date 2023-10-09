@@ -7,6 +7,8 @@ const startListeningButton = document.getElementById("start-voice");
 const stopListeningButton = document.getElementById("stop-listening");
 const chatLog = document.getElementById("chat-input");
 const chatInner = document.getElementById('inner_chat');
+
+
 let captureImage;
 let userMail;
 
@@ -79,14 +81,25 @@ const loadDataFromLocalstorage = () => {
 
     const defaultText = `<div class="default-text">
                             <h1>When Lumos meets charm, magic happens</h1></br></br>
-                           
+                            
+                            <div style="display: flex; justify-content: space-between; align-items:center;">
                             <button id="capture-image" style="color:red  ;   color: black;
                             padding: 20px;
                             border-radius: 33px;
                             background: white;
-                            font-size: 16px;">Capture Image</button><br><br><br>
+                            font-size: 16px;
+                            margin-right: 20px;">Capture Image</button><br><br><br>
 
-                        </div>`
+                            <div>
+                            <button id="done" onclick="done()" style="color:red  ;   color: black;
+                            padding: 20px;
+                            border-radius: 33px;
+                            background: white;
+                            font-size: 16px;
+                            margin-left: 20px;" >Go to Financial Reccomendation</button>
+                          </div>
+                           </div>
+                         </div>`
 
     // chatContainer.innerHTML = localStorage.getItem("all-chats") || defaultText;
     chatInner.innerHTML=defaultText;
@@ -140,6 +153,10 @@ stopListeningButton.addEventListener("click", function () {
         recognition.stop();
     }
 });
+
+function done(){
+    window.location.href ='/HSBC_Bot_Server/yes_no_question/';
+}
 
 function appendMessage(message, sender) {
     const messageElement = document.createElement("div");
