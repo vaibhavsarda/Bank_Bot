@@ -1,3 +1,25 @@
+var button = document.getElementById("oldButton");
+const refresh = document.getElementById("refresh");
+const goback = document.getElementById("goback");
+
+refresh.addEventListener("click", () => {
+    refresh_page();
+});
+goback.addEventListener("click", () => {
+    goback_page();
+});
+
+function refresh_page(){
+    window.location.href = "/HSBC_Bot_Server/get_financial_recommendation/";
+
+}
+function goback_page(){
+    window.location.href ='/HSBC_Bot_Server/';
+}
+refresh.style.display = "none";
+goback.style.display = "none";
+
+
 fetch('/static/financial_questionnaire.json')
     .then((questionnaire) => {
         return questionnaire.json();
@@ -32,18 +54,26 @@ function askPersonaQuestions(data) {
             success: (res)=> {
                 response = res.data;
                 pElement.textContent = response.trim();
+              
+                refresh.style.display = "block";
+                goback.style.display = "block";
+    
                 // speakAiResponse(response);
-                startListeningButton.style.display = "block";
-                stopListeningButton.style.display = "block";
+                // startListeningButton.style.display = "block";
+                // stopListeningButton.style.display = "block";
             },
             error: ()=> {
                 console.log("There was an error");
                 pElement.classList.add("error");
+                
+                refresh.style.display = "block";
+                goback.style.display = "block";
+    
                 response = "Oops! Something went wrong while retrieving the response. Please try again.";
                 pElement.textContent = response;
                 // speakAiResponse(response);
-                startListeningButton.style.display = "block";
-                stopListeningButton.style.display = "block";
+                // startListeningButton.style.display = "block";
+                // stopListeningButton.style.display = "block";
             }
         });
 
@@ -135,6 +165,7 @@ function askPersonaQuestions(data) {
         chatInput.placeholder = "Send message";
 
         if(questionNum == questionnaire.length) {
+            button.style.display = "none";
             setTimeout(showTypingAnimation, 5000);
             return;
         }
