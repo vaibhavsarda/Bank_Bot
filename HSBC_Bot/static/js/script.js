@@ -159,7 +159,7 @@ const getChatResponse = async (incomingChatDiv) => {
         success: (res) => {
             response = res.data;
             pElement.textContent = response.trim();
-            speakAiResponse(response);
+            // speakAiResponse(response);
             startListeningButton.style.display = "block";
             stopListeningButton.style.display = "block";
         },
@@ -168,7 +168,7 @@ const getChatResponse = async (incomingChatDiv) => {
             pElement.classList.add("error");
             response = "Oops! Something went wrong while retrieving the response. Please try again.";
             pElement.textContent = response;
-            speakAiResponse(response);
+            // speakAiResponse(response);
             startListeningButton.style.display = "block";
             stopListeningButton.style.display = "block";
         }

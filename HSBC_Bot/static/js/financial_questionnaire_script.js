@@ -32,7 +32,7 @@ function askPersonaQuestions(data) {
             success: (res)=> {
                 response = res.data;
                 pElement.textContent = response.trim();
-                speakAiResponse(response);
+                // speakAiResponse(response);
                 startListeningButton.style.display = "block";
                 stopListeningButton.style.display = "block";
             },
@@ -41,7 +41,7 @@ function askPersonaQuestions(data) {
                 pElement.classList.add("error");
                 response = "Oops! Something went wrong while retrieving the response. Please try again.";
                 pElement.textContent = response;
-                speakAiResponse(response);
+                // speakAiResponse(response);
                 startListeningButton.style.display = "block";
                 stopListeningButton.style.display = "block";
             }
@@ -385,11 +385,11 @@ startListeningButton.addEventListener("click", function () {
 
     recognition.onstart = function () {
         startListeningButton.style.display = "none";
-        // stopListeningButton.style.display = "block";
+        stopListeningButton.style.display = "block";
     }
 
     recognition.onend = function () {
-        // startListeningButton.style.display = "block";
+        startListeningButton.style.display = "block";
         stopListeningButton.style.display = "none";
     }
 
