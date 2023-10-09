@@ -340,7 +340,7 @@ const handleOutgoingChat = () => {
                     </div>
                 </div>`;
 
-    userMail=userText;            
+    userMail = userText;
                 
 
     // Create an outgoing chat div with user's message and append it to chat container
