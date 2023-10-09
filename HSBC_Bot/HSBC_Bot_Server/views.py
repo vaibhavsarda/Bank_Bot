@@ -14,7 +14,7 @@ from email import encoders
 import os
 
 
-openai.api_key = "API_KEY"
+openai.api_key = "YOUR_API_KEY"
 
 # Create your views here.
 def index(request):
@@ -66,7 +66,7 @@ def get_mail(request):
 
         # Send the modified image via email
         from_email = "vemulashivani2012@gmail.com"
-        from_password = "qlww rkwk waze aycs"
+        from_password = "llvj qyvp zfka zfhx"
         # user_mail=input("Enter your mail id")
         to_email = user_mail
 
@@ -91,7 +91,9 @@ def get_mail(request):
         cv2.destroyAllWindows()
         server = smtplib.SMTP('smtp.gmail.com', 587)
         server.starttls()
+        print(from_email)
         server.login(from_email, from_password)
+        
         server.sendmail(from_email, to_email, msg.as_string())
         server.quit()
 
