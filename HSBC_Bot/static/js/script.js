@@ -79,7 +79,7 @@ const loadDataFromLocalstorage = () => {
                             <p>Start a conversation and explore the power of AI.<br> Your chat history will be displayed here.</p>
                         </div>`
 
-    chatContainer.innerHTML = localStorage.getItem("all-chats") || defaultText;
+    chatContainer.innerHTML = defaultText;
     chatContainer.scrollTo(0, chatContainer.scrollHeight); // Scroll to bottom of the chat container
 }
 
@@ -159,7 +159,9 @@ const getChatResponse = async (incomingChatDiv) => {
         success: (res) => {
             response = res.data;
             pElement.textContent = response.trim();
-            // speakAiResponse(response);
+            if(response.trim() == "Oops! Something went wrong while retrieving the response. Please try again.")
+                pElement.classList.add("error");
+            speakAiResponse(response);
             startListeningButton.style.display = "block";
             stopListeningButton.style.display = "block";
         },
@@ -168,7 +170,7 @@ const getChatResponse = async (incomingChatDiv) => {
             pElement.classList.add("error");
             response = "Oops! Something went wrong while retrieving the response. Please try again.";
             pElement.textContent = response;
-            // speakAiResponse(response);
+            speakAiResponse(response);
             startListeningButton.style.display = "block";
             stopListeningButton.style.display = "block";
         }
