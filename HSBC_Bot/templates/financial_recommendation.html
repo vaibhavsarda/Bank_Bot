@@ -1,10 +1,29 @@
 {% extends 'base.html' %}
 
 {% block headscripts %}
-    {% load static %}
-    <script src="{% static 'js/financial_questionnaire_script.js' %}" defer></script>
+{% load static %}
+<script src="{% static 'js/financial_questionnaire_script.js' %}" defer></script>
 {% endblock headscripts %}
 
 {% block body %}
-    <div id="snackbar"></div>
+<div id="snackbar"></div>
+<div id="redirect">
+    <div style="display: flex; justify-content: space-between; align-items:center;">
+        <button id="refresh" style="color:red  ;   color: black;
+            padding: 20px;
+            border-radius: 33px;
+            background: white;
+            font-size: 16px;
+            margin-right: 20px;">Get Recommendation Again</button><br><br><br>
+
+        <div>
+            <button id="goback" onclick="done()" style="color:red  ;   color: black;
+            padding: 20px;
+            border-radius: 33px;
+            background: white;
+            font-size: 16px;
+            margin-left: 20px;">Go to interactive mode</button>
+        </div>
+    </div>
+</div>
 {% endblock body %}
