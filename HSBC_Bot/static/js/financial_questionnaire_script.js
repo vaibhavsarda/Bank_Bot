@@ -135,7 +135,7 @@ function askPersonaQuestions(data) {
         chatInput.placeholder = "Send message";
 
         if(questionNum == questionnaire.length) {
-            setTimeout(showTypingAnimation, 5000);
+            setTimeout(showTypingAnimation, 500);
             return;
         }
 

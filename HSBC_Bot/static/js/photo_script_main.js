@@ -96,7 +96,7 @@ const loadDataFromLocalstorage = () => {
                             border-radius: 33px;
                             background: white;
                             font-size: 16px;
-                            margin-left: 20px;" >Go to Financial Reccomendation</button>
+                            margin-left: 20px;" >Go to Financial Recommendation</button>
                           </div>
                            </div>
                          </div>`
@@ -216,37 +216,61 @@ const get_mail = async (incomingChatDiv) => {
     
     let response = null;
 
-    $.ajax({
-        type: 'GET',
-        url: '/HSBC_Bot_Server/get_mail',
-        data: {
-            'user_mail': "vemulashivani2002@gmail.com"
-        },
-        success: (res)=> {
-            response = res.data;
-            showSnackBar("Image is sent to you successfully");
-
-            // setTimeout(function() {
-            //     window.location.href = '/HSBC_Bot_Server/get_financial_recommendation/';
-            // }, 3000);
-
-            // pElement.textContent = response.trim();
-            // speakAiResponse(response);
-            // startListeningButton.style.display = "block";
-            // stopListeningButton.style.display = "block";
-        },
-        error: ()=> {
-            console.log("There was an error");
-            showSnackBar("There was an error");
-            // pElement.classList.add("error");
-            // response = "Oops! Something went wrong while retrieving the response. Please try again.";
-            // pElement.textContent = response;
-            // speakAiResponse(response);
-            // startListeningButton.style.display = "block";
-            // stopListeningButton.style.display = "block";
-        }
+    fetch('/HSBC_Bot_Server/get_mail/', {
+        method: 'GET', // or 'POST' depending on your implementation
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          console.log(data);
+          // Display the captured image on the page
+          const capturedImageElement = document.getElementById('captured-image');
+          console.log(capturedImageElement);
+          capturedImageElement.src = `data:image/png;base64, ${data.image_data}`;
+          capturedImageElement.display = "block";
+          console.log(capturedImageElement.src);
+        })
+        .catch((error) => {
+          console.error('Error capturing image:', error);
     });
-// 
+
+//    $.ajax({
+//        type: 'GET',
+//        url: '/HSBC_Bot_Server/get_mail',
+//        data: {
+//            'user_mail': "vemulashivani2002@gmail.com"
+//        },
+//        success: (res)=> {
+//            response = res;
+//            console.log(response);
+//            image = response.image_data;
+//            console.log(image);
+////            response = res["image_data"];
+////            console.log(response);
+//
+//
+//            showSnackBar("Image is sent to you successfully");
+//
+//            // setTimeout(function() {
+//            //     window.location.href = '/HSBC_Bot_Server/get_financial_recommendation/';
+//            // }, 3000);
+//
+//            // pElement.textContent = response.trim();
+//            // speakAiResponse(response);
+//            // startListeningButton.style.display = "block";
+//            // stopListeningButton.style.display = "block";
+//        },
+//        error: ()=> {
+//            console.log("There was an error");
+//            showSnackBar("There was an error");
+//            // pElement.classList.add("error");
+//            // response = "Oops! Something went wrong while retrieving the response. Please try again.";
+//            // pElement.textContent = response;
+//            // speakAiResponse(response);
+//            // startListeningButton.style.display = "block";
+//            // stopListeningButton.style.display = "block";
+//        }
+//    });
+
     // Remove the typing animation, append the paragraph element and save the chats to local storage
     // incomingChatDiv.querySelector(".typing-animation").remove();
     // incomingChatDiv.querySelector(".chat-details").appendChild(pElement);

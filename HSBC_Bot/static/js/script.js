@@ -161,7 +161,7 @@ const getChatResponse = async (incomingChatDiv) => {
             pElement.textContent = response.trim();
             if(response.trim() == "Oops! Something went wrong while retrieving the response. Please try again.")
                 pElement.classList.add("error");
-            speakAiResponse(response);
+//            speakAiResponse(response);
             startListeningButton.style.display = "block";
             stopListeningButton.style.display = "block";
         },
@@ -170,7 +170,7 @@ const getChatResponse = async (incomingChatDiv) => {
             pElement.classList.add("error");
             response = "Oops! Something went wrong while retrieving the response. Please try again.";
             pElement.textContent = response;
-            speakAiResponse(response);
+//            speakAiResponse(response);
             startListeningButton.style.display = "block";
             stopListeningButton.style.display = "block";
         }

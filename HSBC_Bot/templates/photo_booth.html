@@ -98,24 +98,25 @@
     <div class="chat-log" id="chat-log">
       <!-- Chat messages will appear here -->
 
-
     </div>
 
     <!-- Chats container -->
-    <div class="chat-container">
+    <div class="chat-container" style="overflow=scroll;">
       <div id="inner_chat">
 
         <!-- {% load static %}
             <img id="outputImage" src="{% static 'images/output_image.png' %}" alt="Captured Image"> -->
       </div>
-
-
-      <!-- <div class="outer_chat">
-          {% load static %}
-          <img id="outputImage" src="{% static 'images/output_image.png' %}" alt="Captured Image"> 
-      
-        </div> -->
+      <div class="container">
+  <!--        <video id="webcam-video" autoplay></video>-->
+  <!--        <canvas id="webcam-canvas" style="display: block;"></canvas>-->
+  <!--        <button id="capture-button" class="btn btn-primary">Capture Image</button>-->
+          <!-- Display the captured image -->
+          <img id="captured-image" style="display: block; margin-left:auto; margin-right:auto; width:85%; height:50%;">
+      </div>
     </div>
+
+
 
 
     <!-- Typing container -->
