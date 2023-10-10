@@ -144,6 +144,30 @@ function askPersonaQuestions(data) {
             }
         }
 
+        // Age and retirement age verifications
+        if(questionNum == 1) {
+            if(parseInt(userText) > 70) {
+                showSnackBar("I know you're lying :D. Please enter your true age.");
+                return;
+            }
+        } else if(questionNum == 5) {
+
+            let userRetirementAge = parseInt(userText);
+            let userAge = parseInt(questionnaire[1]["answer"]);
+
+            if(userRetirementAge >= 80) {
+                showSnackBar("Please be optimistic, we hope you retire before 80 :)");
+                return;
+            }
+            else if(userRetirementAge < userAge) {
+                showSnackBar(`I hope that was possible :), but you cannot retire before ${userAge}.`);
+                return;
+            }
+            else if(userRetirementAge == userAge) {
+                showSnackBar("Ah, I see, you want to retire now itself. Good choice!");
+            }
+        }
+
         // Store user's answer
         questionnaire[questionNum]["answer"] = userText;
 
