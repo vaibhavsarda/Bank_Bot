@@ -159,10 +159,10 @@ def get_products_and_services(request):
                         "My age is {1}. " \
                         "I am a {2}. " \
                         "I live in {3}. " \
-                        "My primary financial objective is to: {4}. " \
+                        "My hobbies: {4}. " \
                         "I want to retire by the age of {5}. " \
                         "My purchasing decision-making behavior: {6}. " \
-                        "My hobbies: {7}. " \
+                        "My primary financial objective is to: {7}. " \
                         "Based on this information, please recommend me financial products and services from HSBC Bank in my location. Don't recommend financial products from any other bank apart from HSBC." \
             .format(
             user_responses[0]["answer"],

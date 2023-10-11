@@ -15,7 +15,7 @@
       "max_words": 5
     },
     {
-      "question": "What are your hobbies?",
+      "question": "What are your hobbies? Examples include, but are not limited to adventure, learning new tech, fitness, foodie, arts and culture, etc.",
       "max_words": 10
     },
     {
@@ -23,7 +23,7 @@
       "verification": "numeric"
     },
     {
-      "question": "How do you typically make purchasing decisions? Are you price-sensitive, brand loyal, or influenced by reviews and recommendations?",
+      "question": "How do you typically make purchasing decisions? Examples include, but are not limited to: price-sensitive, brand loyal, influenced by reviews and recommendations, etc.",
       "max_words": 15
     },
     {
