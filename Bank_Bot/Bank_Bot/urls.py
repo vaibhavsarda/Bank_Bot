@@ -1,5 +1,5 @@
 """
-URL configuration for HSBC_Bot project.
+URL configuration for Bank_Bot project.
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/4.2/topics/http/urls/
@@ -18,6 +18,6 @@ from django.contrib import admin
 from django.urls import include, path
 
 urlpatterns = [
-    path("HSBC_Bot_Server/", include("HSBC_Bot_Server.urls")),
+    path("Bank_Bot_Server/", include("Bank_Bot_Server.urls")),
     path('admin/', admin.site.urls),
 ]

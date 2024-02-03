@@ -10,11 +10,11 @@ goback.addEventListener("click", () => {
 });
 
 function refresh_page(){
-    window.location.href = "/HSBC_Bot_Server/get_financial_recommendation/";
+    window.location.href = "/Bank_Bot_Server/get_financial_recommendation/";
 
 }
 function goback_page(){
-    window.location.href ='/HSBC_Bot_Server/';
+    window.location.href ='/Bank_Bot_Server/';
 }
 refresh.style.display = "none";
 goback.style.display = "none";
@@ -47,7 +47,7 @@ function askPersonaQuestions(data) {
 
         $.ajax({
             type: 'GET',
-            url: '/HSBC_Bot_Server/get_products_and_services',
+            url: '/Bank_Bot_Server/get_products_and_services',
             data: {
                 'userResponses': userResponses
             },

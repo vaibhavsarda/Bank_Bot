@@ -6,6 +6,9 @@ const deleteButton = document.querySelector("#delete-btn");
 const startListeningButton = document.getElementById("start-voice");
 const stopListeningButton = document.getElementById("stop-listening");
 const chatLog = document.getElementById("chat-input");
+const captureImage = document.querySelector("#capture-image")
+
+
 
 let userText = null;
 const startButton = document.getElementById('start-voice');
@@ -75,11 +78,17 @@ const loadDataFromLocalstorage = () => {
     themeButton.innerText = document.body.classList.contains("light-mode") ? "dark_mode" : "light_mode";
 
     const defaultText = `<div class="default-text">
-                            <h1>LUMOS </h1>
-                            <p>Start a conversation and explore the power of AI.<br> Your chat history will be displayed here.</p>
+                            <h1>When Lumos meets charm, magic happens</h1>
+                            <h3>Please Enter your Email Id</h3></br></br>
+                            <button id="capture-image" style="color:red  ;   color: black;
+                            padding: 20px;
+                            border-radius: 33px;
+                            background: white;
+                            font-size: 16px;">Capture Image</button><br><br><br>
+
                         </div>`
 
-    chatContainer.innerHTML = defaultText;
+    chatContainer.innerHTML = localStorage.getItem("all-chats") || defaultText;
     chatContainer.scrollTo(0, chatContainer.scrollHeight); // Scroll to bottom of the chat container
 }
 
@@ -105,7 +114,7 @@ startListeningButton.addEventListener("click", function () {
         const transcript = event.results[event.results.length - 1][0].transcript;
         appendMessage("You: " + transcript, "user");
 
-        console.log("Transcribed text: " + transcript);
+        console.log("Transcribed text: "+transcript);
 
         chatInput.value = transcript
         if (window.innerWidth > 800) {
@@ -152,27 +161,28 @@ const getChatResponse = async (incomingChatDiv) => {
 
     $.ajax({
         type: 'GET',
-        url: '/HSBC_Bot_Server/get_gpt_response',
+        url: '/Bank_Bot_Server/get_mail',
         data: {
-            'text': userText
+            'text': user_mail
         },
-        success: (res) => {
+        success: (res)=> {
             response = res.data;
-            pElement.textContent = response.trim();
-            if(response.trim() == "Oops! Something went wrong while retrieving the response. Please try again.")
-                pElement.classList.add("error");
-//            speakAiResponse(response);
-            startListeningButton.style.display = "block";
-            stopListeningButton.style.display = "block";
+            showSnackBar("Image is sent to you successfully");
+
+            // pElement.textContent = response.trim();
+            // speakAiResponse(response);
+            // startListeningButton.style.display = "block";
+            // stopListeningButton.style.display = "block";
         },
-        error: () => {
+        error: ()=> {
             console.log("There was an error");
-            pElement.classList.add("error");
-            response = "Oops! Something went wrong while retrieving the response. Please try again.";
-            pElement.textContent = response;
-//            speakAiResponse(response);
-            startListeningButton.style.display = "block";
-            stopListeningButton.style.display = "block";
+            showSnackBar("There was an error");
+            // pElement.classList.add("error");
+            // response = "Oops! Something went wrong while retrieving the response. Please try again.";
+            // pElement.textContent = response;
+            // speakAiResponse(response);
+            // startListeningButton.style.display = "block";
+            // stopListeningButton.style.display = "block";
         }
     });
 
@@ -181,6 +191,44 @@ const getChatResponse = async (incomingChatDiv) => {
     incomingChatDiv.querySelector(".chat-details").appendChild(pElement);
     localStorage.setItem("all-chats", chatContainer.innerHTML);
     chatContainer.scrollTo(0, chatContainer.scrollHeight);
+}
+
+const get_mail = async (incomingChatDiv) => {
+
+    let response = null;
+
+    $.ajax({
+        type: 'GET',
+        url: '/Bank_Bot_Server/get_mail',
+        data: {
+            'text': user_mail
+        },
+        success: (res)=> {
+            response = res.data;
+            showSnackBar("Image is sent to you successfully");
+
+            // pElement.textContent = response.trim();
+            // speakAiResponse(response);
+            // startListeningButton.style.display = "block";
+            // stopListeningButton.style.display = "block";
+        },
+        error: ()=> {
+            console.log("There was an error");
+            showSnackBar("There was an error");
+            // pElement.classList.add("error");
+            // response = "Oops! Something went wrong while retrieving the response. Please try again.";
+            // pElement.textContent = response;
+            // speakAiResponse(response);
+            // startListeningButton.style.display = "block";
+            // stopListeningButton.style.display = "block";
+        }
+    });
+//
+    // Remove the typing animation, append the paragraph element and save the chats to local storage
+    // incomingChatDiv.querySelector(".typing-animation").remove();
+    // incomingChatDiv.querySelector(".chat-details").appendChild(pElement);
+    // localStorage.setItem("all-chats", chatContainer.innerHTML);
+    // chatContainer.scrollTo(0, chatContainer.scrollHeight);
 }
 
 const speakAiResponse = (aiResponse) => {
@@ -221,7 +269,7 @@ const showTypingAnimation = () => {
 
 const handleOutgoingChat = () => {
     userText = chatInput.value.trim(); // Get chatInput value and remove extra spaces
-    if (!userText) return; // If chatInput is empty return from here
+    if(!userText) return; // If chatInput is empty return from here
 
     // Clear the input field and reset its height
     chatInput.value = "";
@@ -244,14 +292,14 @@ const handleOutgoingChat = () => {
 
 deleteButton.addEventListener("click", () => {
     // Remove the chats from local storage and call loadDataFromLocalstorage function
-    if (confirm("Are you sure you want to delete all the chats?")) {
+    if(confirm("Are you sure you want to delete all the chats?")) {
         localStorage.removeItem("all-chats");
         loadDataFromLocalstorage();
     }
 });
 
 themeButton.addEventListener("click", () => {
-    // Toggle body's class for the theme mode and save the updated theme to the local storage 
+    // Toggle body's class for the theme mode and save the updated theme to the local storage
     document.body.classList.toggle("light-mode");
     localStorage.setItem("themeColor", themeButton.innerText);
     themeButton.innerText = document.body.classList.contains("light-mode") ? "dark_mode" : "light_mode";
@@ -261,12 +309,12 @@ const initialInputHeight = chatInput.scrollHeight;
 
 chatInput.addEventListener("input", () => {
     // Adjust the height of the input field dynamically based on its content
-    chatInput.style.height = `${initialInputHeight}px`;
+    chatInput.style.height =  `${initialInputHeight}px`;
     chatInput.style.height = `${chatInput.scrollHeight}px`;
 });
 
 chatInput.addEventListener("keydown", (e) => {
-    // If the Enter key is pressed without Shift and the window width is larger 
+    // If the Enter key is pressed without Shift and the window width is larger
     // than 800 pixels, handle the outgoing chat
     if (e.key === "Enter" && !e.shiftKey && window.innerWidth > 800) {
         e.preventDefault();
@@ -274,5 +322,27 @@ chatInput.addEventListener("keydown", (e) => {
     }
 });
 
+function createChat(chatType, chatText) {
+    let chatImageBasePath = '/static/images/';
+    let chatImageName = chatType == "incoming" ? 'lumo.png' : 'user.jpg';
+    let chatImagePath = chatImageBasePath + chatImageName;
+
+    let altText = chatType == "incoming" ? "bot-img" : "user-img";
+
+    const html = `<div class="chat-content">
+                    <div class="chat-details">
+                        <img src=${chatImagePath} alt=${altText}>
+                        <p>${chatText}</p>
+                    </div>
+                </div>`;
+
+    const outgoingChatDiv = createChatElement(html, chatType);
+    chatContainer.querySelector(".default-text")?.remove();
+    chatContainer.appendChild(outgoingChatDiv);
+    chatContainer.scrollTo(0, chatContainer.scrollHeight);
+}
+
+createChat("incoming", "Please enter your email address for receiving your customized photo");
 loadDataFromLocalstorage();
 sendButton.addEventListener("click", handleOutgoingChat);
+captureImage.addEventListener("click", get_mail);

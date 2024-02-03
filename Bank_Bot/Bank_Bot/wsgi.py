@@ -1,5 +1,5 @@
 """
-WSGI config for HSBC_Bot project.
+WSGI config for Bank_Bot project.
 
 It exposes the WSGI callable as a module-level variable named ``application``.
 
@@ -11,6 +11,6 @@ import os
 
 from django.core.wsgi import get_wsgi_application
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'HSBC_Bot.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'Bank_Bot.settings')
 
 application = get_wsgi_application()

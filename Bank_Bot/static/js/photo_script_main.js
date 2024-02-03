@@ -155,7 +155,7 @@ stopListeningButton.addEventListener("click", function () {
 });
 
 function done(){
-    window.location.href ='/HSBC_Bot_Server/yes_no_question/';
+    window.location.href ='/Bank_Bot_Server/yes_no_question/';
 }
 
 function appendMessage(message, sender) {
@@ -180,7 +180,7 @@ const getChatResponse = async (incomingChatDiv) => {
 
     $.ajax({
         type: 'GET',
-        url: '/HSBC_Bot_Server/get_mail',
+        url: '/Bank_Bot_Server/get_mail',
         data: {
             'text': user_mail
         },
@@ -216,7 +216,7 @@ const get_mail = async (incomingChatDiv) => {
     
     let response = null;
 
-    fetch('/HSBC_Bot_Server/get_mail/', {
+    fetch('/Bank_Bot_Server/get_mail/', {
         method: 'GET', // or 'POST' depending on your implementation
       })
         .then((response) => response.json())
@@ -235,7 +235,7 @@ const get_mail = async (incomingChatDiv) => {
 
 //    $.ajax({
 //        type: 'GET',
-//        url: '/HSBC_Bot_Server/get_mail',
+//        url: '/Bank_Bot_Server/get_mail',
 //        data: {
 //            'user_mail': "vemulashivani2002@gmail.com"
 //        },
@@ -251,7 +251,7 @@ const get_mail = async (incomingChatDiv) => {
 //            showSnackBar("Image is sent to you successfully");
 //
 //            // setTimeout(function() {
-//            //     window.location.href = '/HSBC_Bot_Server/get_financial_recommendation/';
+//            //     window.location.href = '/Bank_Bot_Server/get_financial_recommendation/';
 //            // }, 3000);
 //
 //            // pElement.textContent = response.trim();

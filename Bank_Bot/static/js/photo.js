@@ -9,9 +9,9 @@ decline.addEventListener("click", () => {
 });
 
 function accept_photo(){
-    window.location.href = "/HSBC_Bot_Server/get_photo/";
+    window.location.href = "/Bank_Bot_Server/get_photo/";
 
 }
 function decline_photo(){
-    window.location.href ='/HSBC_Bot_Server/yes_no_question/';
+    window.location.href ='/Bank_Bot_Server/yes_no_question/';
 }

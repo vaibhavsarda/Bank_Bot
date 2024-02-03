@@ -12,11 +12,11 @@ noButton.addEventListener("click", () => {
 
 
 function onYesClick() {
-    window.location.href = '/HSBC_Bot_Server/get_financial_recommendation/';
+    window.location.href = '/Bank_Bot_Server/get_financial_recommendation/';
 }
 
 function onNoClick() {
-    window.location.href = "/HSBC_Bot_Server/";
+    window.location.href = "/Bank_Bot_Server/";
     // Remove the question and everything inside the 'questionDiv'
     // var questionDiv = document.getElementById("questionDiv");
     //questionDiv.parentNode.removeChild(questionDiv);
