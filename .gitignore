@@ -2,10 +2,10 @@
 bin/
 include/
 lib/
-HSBC_Bot/pyvenv.cfg
+Bank_Bot/pyvenv.cfg
 .DS_Store
-HSBC_Bot/bin/
-HSBC_Bot/include/
-HSBC_Bot/lib/
-HSBC_Bot/.DS_Store
-HSBC_Bot/HSBC_Bot_Server/__pycache__/
+Bank_Bot/bin/
+Bank_Bot/include/
+Bank_Bot/lib/
+Bank_Bot/.DS_Store
+Bank_Bot/Bank_Bot_Server/__pycache__/
