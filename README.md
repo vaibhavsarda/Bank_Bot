@@ -10,9 +10,9 @@ A Django-based website which takes audio input from user and returns audio respo
     * Create a virtual environment: python3 -m venv .
     * Activate virtual environment (This needs to be done everytime the project is run): source ./bin/activate 
 6. Install requirements:
-    * cd HSBC_Bot
+    * cd Bank_Bot
     * pip install -r requirements.txt
 7. Run the project:
-    * cd HSBC_Bot
+    * cd Bank_Bot
     * python manage.py runserver
-8. The home page development is completed and is working: BASE_URL//HSBC_Bot_Server/
+8. The home page development is completed and is working: BASE_URL//Bank_Bot_Server/
