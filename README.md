@@ -1,6 +1,8 @@
-# Bank_Bot
+# Lumos
 
-A Django-based website which takes audio input from user and returns audio response from user, as obtained from GPT-3.
+Lumos is an interactive financial advisor which recommends relevant financial products and services based on your requirements.
+
+It is developed using Python, Django, HTML, CSS, and JavaScript.
 
 ### Installation and set-up
 1. Install Python 3.11.4
@@ -8,11 +10,11 @@ A Django-based website which takes audio input from user and returns audio respo
 3. Clone the project on your local
 4. Set-up a virtual environment (optional, but recommended):
     * Create a virtual environment: python3 -m venv .
-    * Activate virtual environment (This needs to be done everytime the project is run): source ./bin/activate 
+    * Activate virtual environment (This needs to be done every time the project is run): source ./bin/activate 
 6. Install requirements:
     * cd Bank_Bot
     * pip install -r requirements.txt
 7. Run the project:
     * cd Bank_Bot
     * python manage.py runserver
-8. The home page development is completed and is working: BASE_URL//Bank_Bot_Server/
+8. Access the application at: <BASE_URL>/Bank_Bot_Server/
